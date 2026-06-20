@@ -1,0 +1,753 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import TerminalBadge from "@/components/TerminalBadge.astro";
+import { SITE } from "@/config";
+
+const publications = [
+  {
+    year: "2026",
+    papers: [
+      {
+        title: "Genetic association and machine learning improve the prediction of type 1 diabetes risk",
+        authors: "McGrail C, Sears TJ, Griffin EN, Ghaben AL, Smadbeck P, Flannick J, Kudtarkar P, Carter H, Gaulton KJ",
+        journal: "Nature Genetics, 2026",
+        doi: "https://doi.org/10.1038/s41588-026-02578-y",
+      },
+      {
+        title: "ATM Deficiency Induces TGFβ-Mediated Stromal Programming in Pancreatic Cancer",
+        authors: "Roger E, Mummey HM, Zimmer E, Srinivasan D, Härle A, Moubri L, Michels AK, Singh R, Ekizce M, Melzer MK, Lee Y, Silva A, Härle L, Engleitner T, Arnold F, Morawe M, Naggay BK, Schneider J, Gilberg L, Mosler JP, Ludwig C, Meng C, Hirschenberger M, Hunszinger V, Kluck K, Kirchner M, Volckmar AL, Wirth M, Alhamdani MSS, Hoheisel JD, Löhr JM, Seufferlein T, Abaei A, Kemkemer R, Rad R, Budczies J, Mulaw MA, Hermann PC, Haenle MM, Sparrer KMJ, Halbrook CJ, Gaulton KJ, Steinestel K, Stenzinger A, Dusetti N, Perkhofer L, Gout J, Kleger A",
+        journal: "Cancer Research, 2026",
+        doi: "https://doi.org/10.1158/0008-5472.CAN-26-0138",
+      },
+      {
+        title: "PanKbase Integrated Single-Cell Map: A Comprehensive Atlas of Human Pancreatic Islets",
+        authors: "Vu HTH, Sun H, Kudtarkar P, Sharp SA, Brusman L, Jurgens JA, PanKbase Consortium, Flannick J, Burtt NP, Chen S, Liu J, Cartailler JP, Voight BF, Stitzel ML, Brissova M, Gloyn AL, Gaulton KJ, Parker SCJ",
+        journal: "bioRxiv, 2026",
+        doi: "https://doi.org/10.64898/2026.06.02.729719",
+      },
+      {
+        title: "The Common Fund Data Ecosystem (CFDE)",
+        authors: "Jurgens JA, Bueckle A, Vora J, Maurya MR, Ahooyi TM, Zheng E, Stear B, Wang D, Ree C, Ramachandran S, Nekrutenko A, Brandes M, Thaker S, Katz DH, Munoz-Torres MC, Diamant I, Chun HJE, Simmons JA, Tasian SK, Jenkins SL, Evangelista JE, Dodia H, Saha S, Lindquist MA, Gajjala V, Nemarich C, Zhen J, Ross KE, Byrd AI, Shilin A, Metzger VT, Bologa CG, Srinivasan S, Jang D, Kumar P, Taub LD, Levanto MP, Petrosyan V, Anandakrishnan M, Kim M, Clarke DJB, Ivich A, Crichton DJ, Smallen S, Bordelon D, Chen C, Schroeder AJ, Mahabal A, Cao-Berg I, Kim S, Masood D, Yu K, Gaulton KJ, Jimenez-Morales D, Rincon JM, Honick BJ, Wang W, Wu CH, Milosavljevic A, Blood PD, Boline J, Oprea TI, Lambert CG, de Bono B, Park PJ, Silverstein JC, Flannick J, Yang JJ, Grethe JS, Subramaniam S, Tiemeyer M, Clark T, Wheeler MT, Kahn A, Burnette J, Ranzinger R, Schatz MC, Gibson L, Burtt NP, Carson JP, Chen JY, Ping P, Davis S, Taylor DM, Börner K, Dillman A, Bursey K, Ma'ayan A, CFDE Consortium, Mazumder R, Roth ME, Greene CS",
+        journal: "bioRxiv, 2026",
+        doi: "https://doi.org/10.64898/2026.04.10.717672",
+      },
+      {
+        title: "Functional genomics reveals mediators of beta cell survival in ER stress and type 2 diabetes risk",
+        authors: "Okino ML, Zhu H, Corban S, Benaglio P, Djulamsah J, O'Mahony B, Vanderstel K, Elgamal R, Miller M, Wang A, Sander M, Gaulton KJ",
+        journal: "bioRxiv, 2026",
+        doi: "https://doi.org/10.64898/2026.03.30.715154",
+      },
+      {
+        title: "A new mRNA antigen vaccine induces potent B and T cell responses and in vivo protection against SARS-CoV-2",
+        authors: "Wen J, Moon J, Tucciarone L, Bu TH, Sun AY, Miller R, Timis J, Wu L, Smith DM, Shresta S, Gaulton KJ, Rana TM",
+        journal: "npj Vaccines, 2026",
+        doi: "https://doi.org/10.1038/s41541-026-01421-z",
+      },
+      {
+        title: "Cell-type specific impact of opioid use disorder and HIV on the human forebrain and cerebellum",
+        authors: "Green AA, Vashist TD, Jakhmola S, Chen X, Baidwan G, Buchanan J, Tiwari SK, Griffin E, Howell A, Lee Y, Moore DJ, Gianella S, Smith DM, Zhu Q, Walss-Bass C, Wang A, Mukamel EA, Gaulton KJ, Rana TM",
+        journal: "bioRxiv, 2026",
+        doi: "https://doi.org/10.64898/2026.03.01.708876",
+      },
+    ],
+  },
+  {
+    year: "2025",
+    papers: [
+      {
+        title: "Single-cell multiome and spatial profiling reveals pancreas cell type-specific gene regulatory programs of type 1 diabetes progression",
+        authors: "Melton R, Jimenez S, Elison W, Tucciarone L, Howell A, Wang G, Berti D, Beebe E, Miller M, Zeng C, McGrail C, VanderStel K, Korgaonkar K, Elgamal R, Mummey H, Chiou J, Griffin E, Kusmartseva I, Atkinson M, Preissl S, Theis FJ, Sander M, Gaulton KJ",
+        journal: "Science Advances, 2025",
+        doi: "https://doi.org/10.1126/sciadv.ady0080",
+      },
+      {
+        title: "Altered immune and metabolic molecular pathways drive islet cell dysfunction in human type 1 diabetes",
+        authors: "Dos Santos T, Dai XQ, Jones RC, Spigelman AF, Mummey HM, Ewald JD, Ellis CE, Lyon JG, Smith N, Bautista A, Manning Fox JE, Neff NF, Detweiler AM, Tan M, Arrojo e Drigo R, Xia J, Camunas-Soler J, Gaulton KJ, Quake SR, MacDonald PE",
+        journal: "The Journal of Clinical Investigation, 2025",
+        doi: "https://doi.org/10.1172/JCI195267",
+      },
+      {
+        title: "Single cell and spatial characterization of the human pancreas reveals drivers of beta cell dysfunction in cystic fibrosis",
+        authors: "Mummey HM, Corban S, Lucero J, Melton RL, Pittigher M, Johnston VC, Deutsch GH, D'Antonio-Chronowska A, Wang A, Hull-Meichle RL, Gaulton KJ",
+        journal: "bioRxiv, 2025",
+        doi: "https://doi.org/10.64898/2025.12.14.694120",
+      },
+      {
+        title: "Polycomb repressive complexes 1 and 2 independently and dynamically regulate euchromatin during cerebellar neurodevelopment",
+        authors: "Parmar A, Srinivasan A, Krockenberger L, Augustine A, Gong O, Bullard AC, Kalra R, Ledvin L, Pilz D, Tawil J, Tea CE, Wang KC, Urso O, Kaube LM, Sun Y, Sasik R, Gaulton KJ, Fisch KM, Ferguson CJ",
+        journal: "PLoS Genetics, 2025",
+        doi: "https://doi.org/10.1371/journal.pgen.1011843",
+      },
+      {
+        title: "Single cell multiomics reveals drivers of metabolic dysfunction-associated steatohepatitis",
+        authors: "Elison W, Chang L, Xie Y, Miciano C, Yang Q, Mummey H, Lancione R, Corban S, Sakane S, Lucero J, Mamde S, Kim HY, Kim MJ, Melton R, Tucciarone L, Lie A, Loe T, Vashist T, Dang K, Elgamal R, Li D, Vu M, Farah EN, Seng C, Djulamsah J, Yang B, Buchanan J, Miller M, Tran M, Ochoa Birrueta J, Chi NC, Wang T, D'Antonio-Chronowska A, Wang A, Kisseleva T, Brenner D, Ren B, Gaulton KJ",
+        journal: "medRxiv, 2025",
+        doi: "https://doi.org/10.1101/2025.05.09.25327043",
+      },
+      {
+        title: "Single cell multiomics and 3D genome architecture reveal novel pathways of human heart failure",
+        authors: "Xie Y, Tucciarone L, Farah EN, Chang L, Yang Q, Shankar TS, Elison W, Tran S, Djulamsah J, Lie A, Loe T, Holman AR, Corban S, Buchanan J, Mamde S, Zhou H, Elgamal RM, Tseliou E, Huang V, Wang Z, Chiu J, Melton R, Griffin E, Zhang Q, Lucero J, Navankasattusas S, Li D, Seng C, Destici E, Selzman CH, D'Antonio-Chronowska A, Wang T, Wang A, Drakos SG, Gaulton KJ, Ren B, Chi NC",
+        journal: "medRxiv, 2025",
+        doi: "https://doi.org/10.1101/2025.05.08.25327176",
+      },
+      {
+        title: "CFTR Gene Regulation in Human Pancreatic Duct, Bile Duct and Sweat Gland Epithelial Cells",
+        authors: "Umrigar A, Lovrenert K, Kerschner JL, Sharma N, Tian B, Melton R, Mun KS, Vaghela N, Ogawa M, Rosson GD, Ogawa S, Naren AP, Gaulton KJ, Leir SH, Harris A",
+        journal: "Journal of Cellular and Molecular Medicine, 2025",
+        doi: "https://doi.org/10.1111/jcmm.70751",
+      },
+      {
+        title: "Genetic discovery and risk prediction for type 1 diabetes in individuals without high-risk HLA-DR3/DR4 haplotypes",
+        authors: "McGrail C, Chiou J, Elgamal R, Luckett A, Oram R, Benaglio P, Gaulton KJ",
+        journal: "Diabetes Care, 2025 Feb;48(2):202-211",
+        doi: "https://doi.org/10.2337/dc24-1251",
+      },
+    ],
+  },
+  {
+    year: "2024",
+    papers: [
+      {
+        title: "Deciphering the impact of genomic variation on function",
+        authors: "IGVF Consortium",
+        journal: "Nature, 2024 Sep;633(8028):47-57",
+        doi: "https://doi.org/10.1038/s41586-024-07510-0",
+      },
+      {
+        title: "Untangling the genetics of beta cell dysfunction and death in type 1 diabetes",
+        authors: "Robertson CC, Elgamal RM, Henry-Kanarek BA, Arvan P, Chen S, Dhawan S, Eizirik DL, Kaddis JS, Vahedi G, Parker S, Gaulton KJ, Soleimanpour SA",
+        journal: "Mol Metab, 2024 Aug;86:101973",
+        doi: "https://doi.org/10.1016/j.molmet.2024.101973",
+      },
+      {
+        title: "The single-cell opioid responses in the context of HIV (SCORCH) consortium",
+        authors: "Ament SA, Campbell RR, Lobo MK, Receveur JP, Agrawal K, Borjabad A, Byrareddy SN, Chang L, Clarke D, Emani P, Gabuzda D, Gaulton KJ, Giglio M, Giorgi FM, Gok B, Guda C, Hadas E, Herb BR, Hu W, Huttner A, Ishmam MR, Jacobs MM, Kelschenbach J, Kim DW, Lee C, Liu S, Liu X, Madras BK, Mahurkar AA, Mash DC, Mukamel EA, Niu M, O'Connor RM, Pagan CM, Pang APS, Pillai P, Repunte-Canonigo V, Ruzicka WB, Stanley J, Tickle T, Tsai SYA, Wang A, Wills L, Wilson AM, Wright SN, Xu S, Yang J, Zand M, Zhang L, Zhang J, Akbarian S, Buch S, Cheng CS, Corley MJ, Fox HS, Gerstein M, Gummuluru S, Heiman M, Ho YC, Kellis M, Kenny PJ, Kluger Y, Milner TA, Moore DJ, Morgello S, Ndhlovu LC, Rana TM, Sanna PP, Satterlee JS, Sestan N, Spector SA, Spudich S, Tilgner HU, Volsky DJ, White OR, Williams DW, Zeng H",
+        journal: "Mol Psychiatry, 2024 Jun 15",
+        doi: "https://doi.org/10.1038/s41380-024-02620-7",
+      },
+      {
+        title: "Multi-ancestry Polygenic Mechanisms of Type 2 Diabetes Elucidate Disease Processes and Clinical Heterogeneity",
+        authors: "Smith K, Deutsch AJ, McGrail C, Kim H, Hsu S, Mandla R, Schroeder PH, Westerman KE, Szczerbinski L, Majarian TD, Kaur V, Williamson A, Claussnitzer M, Florez JC, Manning AK, Mercader JM, Gaulton KJ, Udler MS",
+        journal: "Nat Med, 30(4):1065-1074",
+        doi: "https://doi.org/10.1038/s41591-024-02865-3",
+      },
+      {
+        title: "Single cell regulatory architecture of human pancreatic islets suggests sex differences in β cell function and the pathogenesis of type 2 diabetes",
+        authors: "Qadir M, Elgamal RM, Song K, Kudtarkar P, Sakamuri S, Katakam PV, El-Dahr S, Kolls J, Gaulton KJ, Mauvais-Jarvis F",
+        journal: "EMBO J, 2024",
+        doi: "https://doi.org/10.1038/s44318-024-00313-z",
+      },
+      {
+        title: "Single cell multiome profiling of pancreatic islets reveals physiological changes in cell type-specific regulation associated with diabetes risk",
+        authors: "Mummey H, Elison W, Korgaonkar K, Elgamal R, Kudtarkar P, Griffin E, Benaglio P, Miller M, Jha A, Manning Fox JE, Mccarthy M, Preissl S, Gloyn AL, Macdonald PE, Gaulton KJ",
+        journal: "bioRxiv, 2024.08.03.606460",
+        doi: "https://doi.org/10.1101/2024.08.03.606460",
+      },
+      {
+        title: "Circulating pancreatic enzyme levels are a causal biomarker of type 1 diabetes",
+        authors: "Elgamal R, Melton R, Chiou J, McGrail C, Gaulton KJ",
+        journal: "medRxiv, 2024.08.08.24311619",
+        doi: "https://doi.org/10.1101/2024.08.08.24311619",
+      },
+    ],
+  },
+  {
+    year: "2023",
+    papers: [
+      {
+        title: "Genetics of Type 1 Diabetes",
+        authors: "Redondo MJ, Onengut-Gumuscu S, Gaulton KJ",
+        journal: "Diabetes in America, National Institute of Diabetes and Digestive and Kidney Diseases (NIDDK); 2023",
+        doi: "https://www.ncbi.nlm.nih.gov/books/NBK597411/",
+      },
+      {
+        title: "Cardiovascular Disease Knowledge Portal: A Community Resource for Cardiovascular Disease Research",
+        authors: "Costanzo MC, Roselli C, Brandes M, Duby M, Hoang Q, Jang D, Koesterer R, Kudtarkar P, Moriondo A, Nguyen T, Ruebenacker O, Smadbeck P, Sun Y, Butterworth AS, Aragam KG, Lumbers RT, Khera AV, Lubitz SA, Ellinor PT, Gaulton KJ, Flannick J, Burtt NP",
+        journal: "Circ Genom Precis Med, 2023 Oct 10:e004181",
+        doi: "https://doi.org/10.1161/CIRCGEN.123.004181",
+      },
+      {
+        title: "Leveraging type 1 diabetes human genetic and genomic data in the T1D Knowledge Portal",
+        authors: "Kudtarkar P, Costanzo MC, Sun Y, Jang D, Koesterer R, Mychaleckyj JC, Nayak U, Onengut-Gumuscu S, Rich SR, Flannick J, Gaulton KJ, Burtt NP",
+        journal: "PLOS biology, 2023",
+        doi: "https://doi.org/10.1371/journal.pbio.3002233",
+      },
+      {
+        title: "An integrated map of cell type-specific gene expression in pancreatic islets",
+        authors: "Elgamal RM, Kudtarkar P, Melton RL, Mummey HM, Benaglio P, Okino M, Gaulton KJ",
+        journal: "Diabetes, 2023",
+        doi: "https://doi.org/10.2337/db23-0130",
+      },
+      {
+        title: "Interpreting non-coding disease-associated variants using single-cell epigenomics",
+        authors: "Gaulton KJ, Preissl S, Ren B",
+        journal: "Nat Rev Genet, 2023 May 9",
+        doi: "https://doi.org/10.1038/s41576-023-00598-6",
+      },
+      {
+        title: "Mapping genetic effects on cell type-specific chromatin accessibility and annotating complex trait variants using single nucleus ATAC-seq",
+        authors: "Benaglio P, Newsome J, Han JY, Chiou J, Aylward A, Corban S, Okino M, Kaur J, Gorkin DU, Gaulton KJ",
+        journal: "Plos Genet, 2023",
+        doi: "https://doi.org/10.1371/journal.pgen.1010759",
+      },
+      {
+        title: "Integration of single-cell multiomic measurements across disease states with genetics identifies mechanisms of beta cell dysfunction in type 2 diabetes",
+        authors: "Wang G, Chiou J, Zeng C, Miller M, Matta I, Han JY, Kadakia N, Okino M, Beebe E, Mallick M, Camunas-Soler J, dos Santos T, Dai X, Ellis C, Hang Y, Kim SK, Macdonald PE, Kandeel FR, Preissl S, Gaulton KJ, Sander M",
+        journal: "Nat Genet, 2023",
+        doi: "https://doi.org/10.1038/s41588-023-01397-9",
+      },
+      {
+        title: "Integrated Physiology of the Exocrine and Endocrine Compartments in Pancreatic Diseases: Workshop Proceedings",
+        authors: "Mastracci TL, Apte M, Amundadottir LT, Alvarsson A, Artandi S, Bellin MD, Bernal-Mizrachi E, Caicedo A, Campbell-Thompson M, Cruz-Monserrate Z, El Ouaamari A, Gaulton KJ, Geisz A, Goodarzi MO, Hara M, Hull-Meichle RL, Kleger A, Klein AP, Kopp JL, Kulkarni RN, Muzumdar MD, Naren AP, Oakes SA, Olesen SS, Phelps EA, Powers AC, Stabler CL, Tirkes T, Whitcomb DC, Yadav D, Yong J, Zaghloul NA, Sander M, Pandol SJ",
+        journal: "Pancreas, 2022 Oct 1;51(9):1061-1073",
+        doi: "https://doi.org/10.1097/MPA.0000000000002170",
+      },
+      {
+        title: "Improving stem cell-derived pancreatic islets using single-cell multiome-inferred regulomes",
+        authors: "Zhu H, Wang G, Nguyen-Ngoc K, Kim D, Miller M, Goss G, Kovsky J, Harrington AR, Saunders D, Melton R, Powers AC, Preissl S, Spagnoli FM, Gaulton KJ, Sander M",
+        journal: "Dev Cell, 2023 May 8;58(9):727-743.e11",
+        doi: "https://doi.org/10.1016/j.devcel.2023.03.011",
+      },
+      {
+        title: "The Type 2 Diabetes Knowledge Portal: an open access genetic resource dedicated to type 2 diabetes and related traits",
+        authors: "Costanzo M, Grotthuss M, Massung J, Jang D, Caulkins L, Koesterer R, Gilbert C, Welch RP, Kudtarkar P, Hoang Q, Boughton AP, Singh P, Sun Y, Duby M, Moriondo A, Nguyen T, Smadbeck P, Alexander BR, Brandes M, Carmichael M, Dornbos P, Green T, Huellas-Bruskiewicz K, Ji Y, Kluge A, McMahon AC, Mercader JM, Ruebenacker O, Sengupta S, Spalding D, Taliun D, AMP-T2D Consortium, Smith P, Thomas MK, Akolkar B, Brosnan MJ, Cherkas A, Chu AY, Fauman EB, Fox CS, Kamphaus TN, Miller MR, Nguyen L, Parsa A, Reilly DF, Ruetten H, Wholley D, Zaghloul NA, Abecasis GR, Altshuler D, Keane TM, McCarthy MI, Gaulton KJ, Florez JC, Boehnke M, Burtt NP, Flannick J",
+        journal: "Cell Metab, 2023 Apr 4;35(4):695-710.e6",
+        doi: "https://doi.org/10.1016/j.cmet.2023.03.001",
+      },
+    ],
+  },
+  {
+    year: "2022",
+    papers: [
+      {
+        title: "Type 1 diabetes risk genes mediate pancreatic beta cell survival in response to proinflammatory cytokines",
+        authors: "Benaglio P, Zhu H, Okino M, Yan J, Elgamal R, Nariai N, Beebe E, Korgaonkar K, Qiu Y, Donovan M, Chiou J, Wang G, Newsome J, Kaur J, Miller M, Preissl S, Corban S, Aylward A, Taipale J, Ren B, Frazer K, Sander M, Gaulton KJ",
+        journal: "Cell Genomics, 2022",
+        doi: "https://doi.org/10.1016/j.xgen.2022.100214",
+      },
+      {
+        title: "Trans-ancestry genetic study of type 2 diabetes highlights the power of diverse populations for discovery and translation",
+        authors: "Mahajan A, Spracklen CN, Zhang W, Ng M, Pettty LE, Kitajima H, Yu GZ, Rueger S, [...], Gaulton KJ, Meigs JB, Mohlke KL, Gloyn AL, Bowden DW, Below JE, Chambers JC, Sim X, Boehnke M, Rotter JI, McCarthy MI, Morris AP",
+        journal: "Nat Genet, 2022",
+        doi: "https://doi.org/10.1038/s41588-022-01058-3",
+      },
+      {
+        title: "Characterizing cis-regulatory elements using single-cell epigenomics",
+        authors: "Preissl S, Gaulton KJ, Ren B",
+        journal: "Nat Rev Genet, 2022",
+        doi: "https://doi.org/10.1038/s41576-022-00509-1",
+      },
+      {
+        title: "High-throughput Genetic Clustering of Type 2 Diabetes Loci Reveals Heterogeneous Mechanistic Pathways of Metabolic Disease",
+        authors: "Kim H, Westerman KE, Smith K, Chiou J, Cole JB, Majarian T, Grotthuss M, Mercader JM, Kwak SH, Kim J, Florez JC, Gaulton KJ, Manning AK, Udler MS",
+        journal: "Diabetologia, 2022 Dec 20",
+        doi: "https://doi.org/10.1007/s00125-022-05848-6",
+      },
+    ],
+  },
+  {
+    year: "2021",
+    papers: [
+      {
+        title: "A single-cell atlas of chromatin accessibility in the human genome",
+        authors: "Zhang K, Hocker JD, Miller M, Hou X, Chiou J, Poirion OB, Qiu Y, Li YE, Gaulton KJ, Wang A, Preissl S, Ren B",
+        journal: "Cell, 2021",
+        doi: "https://doi.org/10.1016/j.cell.2021.10.024",
+      },
+      {
+        title: "Mutations and variants of ONECUT1 in diabetes",
+        authors: "Philippi A, Heller S, Costa IG, Senée V, Breunig M, Li Z, Kwon G, Russell R, Illing A, Lin Q, Hohwieler M, Degavre A, Zalloua P, Liebau S, Schuster M, Krumm J, Zhang X, Geusz R, Benthuysen JR, Wang A, Chiou J, Gaulton K, Neubauer H, Simon E, Klein T, Wagner M, Nair G, Besse C, Dandine-Roulland C, Olaso R, Deleuze J, Kuster B, Hebrok M, Seufferlein T, Sander M, Boehm BO, Oswald F, Nicolino M, Julier C, Kleger A",
+        journal: "Nat Med, 2021",
+        doi: "https://doi.org/10.1038/s41591-021-01502-7",
+      },
+      {
+        title: "An atlas of gene regulatory elements in adult mouse cerebrum",
+        authors: "Li Y, Preissl S, Hou X, Zhang Z, Zhang K, Qiu Y, Poirion OB, Li B, Chiou J, Liu H, Pinto-Duarte A, Kubo N, Yang X, Fang R, Wang X, Han JY, Lucero J, Yan Y, Miller M, Kuan S, Gorkin D, Gaulton KJ, Shen Y, Nunn M, Mukamel EA, Behrens MM, Ecker JR, Ren B",
+        journal: "Nature, 2021",
+        doi: "https://doi.org/10.1038/s41586-021-03604-1",
+      },
+      {
+        title: "Interpreting type 1 diabetes risk using genetics and single cell epigenomics",
+        authors: "Chiou J, Geusz RJ, Okino M, Han JY, Miller M, Benaglio P, Huang S, Korgaonkar K, Heller S, Kleger A, Preissl S, Gorkin DU, Sander M, Gaulton KJ",
+        journal: "Nature, 2021",
+        doi: "https://doi.org/10.1038/s41586-021-03552-w",
+      },
+      {
+        title: "Systematic analysis of binding of transcription factors to noncoding variants",
+        authors: "Yan J, Qiu Y, Ribeiro Dos Santos AM, Yin Y, Li YE, Vinckier N, Nariai N, Benaglio P, Raman A, Li X, Fan S, Chiou J, Chen F, Frazer KA, Gaulton KJ, Sander M, Taipale J, Ren B",
+        journal: "Nature, 2021 Jan 27",
+        doi: "https://doi.org/10.1038/s41586-021-03211-0",
+      },
+      {
+        title: "Single cell chromatin accessibility reveals pancreatic islet cell type- and state-specific regulatory programs of diabetes risk",
+        authors: "Chiou J, Zeng C, Cheng Z, Han JY, Schlichting M, Huang S, Wang J, Sui Y, Deogaygay A, Okino M, Qiu Y, Sun Y, Kudtarkar P, Fang R, Preissl S, Sander M, Gorkin D, Gaulton KJ",
+        journal: "Nature Genetics",
+        doi: "https://doi.org/10.1038/s41588-021-00823-0",
+      },
+      {
+        title: "Cardiac Cell Type-Specific Gene Regulatory Programs and Disease Risk Association",
+        authors: "Hocker JD, Poirion OB, Zhu F, Buchanan J, Zhang K, Chiou J, Wang T, Hou X, Li YE, Zhang Y, Farah EN, Wang A, McCulloch AD, Gaulton KJ, Ren B, Chi NC, Preissl S",
+        journal: "Sci Adv, 2021",
+        doi: "https://doi.org/10.1126/sciadv.abf1444",
+      },
+      {
+        title: "Glucocorticoid signaling in pancreatic islets modulates gene regulatory programs and genetic risk of type 2 diabetes",
+        authors: "Aylward A, Okino M, Benaglio P, Chiou J, Beebe E, Padilla J, Diep S, Gaulton KJ",
+        journal: "Plos Genet, 2021",
+        doi: "https://doi.org/10.1371/journal.pgen.1009531",
+      },
+      {
+        title: "Pancreatic progenitor epigenome maps prioritize type 2 diabetes risk genes with roles in development",
+        authors: "Geusz RJ, Wang A, Chiou J, Lancman JJ, Wetton N, Kefalopoulou S, Wang J, Qiu Y, Yan J, Aylward A, Ren B, Dong P, Gaulton KJ, Sander M",
+        journal: "eLife, 2021",
+        doi: "https://doi.org/10.7554/eLife.59067",
+      },
+      {
+        title: "Integrated analyses of single-cell atlases reveal age, gender, and smoking status associations with cell type-specific expression of mediators of SARS-CoV-2 viral entry and highlights inflammatory programs in putative target cells",
+        authors: "Muus C, Luecken MD, Eraslan G, Waghray A, Heimberg G, Sikkema L, Kobayashi Y, Vaishnav E, Subramanian A, Smilie C, Jagadeesh K, Duong E, Fiskin E, Triglia E, Ansari M, Cai P, Lin B, Buchanan J, Chen S, Shu J, Haber AL, Chung H, Montoro DT, Adams T, Aliee H, Samuel J, Andrusivova A, Angelidis I, Ashenberg O, Bassler K, Bécavin C, Benhar I, Bergenstråhle J, Bergenstråhle L, Bolt L, Braun E, Bui LT, Chaffin M, Chichelnitskiy E, Chiou J, Conlon TM, Cuoco MS, Deprez M, Fischer DS, Gillich A, Gould J, Guo M, Gutierrez AJ, Habermann AC, Harvey T, He P, Hou X, Hu L, Jaiswal A, Jiang P, Kapellos T, Kuo CS, Larsson L, Leney-Greene MA, Lim K, Litviňuková M, Lu J, Ludwig LS, Luo W, Maatz H, Madissoon E, Mamanova L, Manakongtreecheep K, Marquette C, Mbano I, McAdams A, Metzger RJ, Nabhan AN, Nyquist SK, Penland L, Poirion OB, Poli S, Qi C, Queen R, Reichart D, Rosas I, Schupp J, Sinha R, Sit RV, Slowikowski K, Slyper M, Smith N, Sountoulidis A, Strunz M, Sun D, Talavera-López C, Tan P, Tantivit J, Travaglini KJ, Tucker NR, Vernon K, Wadsworth MH, Waldman J, Wang X, Yan W, Zhao W, Ziegler C, The NHLBI LungMAP Consortium, The Human Cell Atlas Lung Biological Network",
+        journal: "Nature Medicine, 2021",
+        doi: "https://doi.org/10.1038/s41591-020-01227-z",
+      },
+    ],
+  },
+  {
+    year: "2020",
+    papers: [
+      {
+        title: "An atlas of dynamic chromatin landscapes in mouse fetal development",
+        authors: "Gorkin DU, Barozzi I, Zhao Y, Zhang Y, Huang H, Lee A, Li B, Chiou J, Wildberg A, Ding B, Zhang B, Wang M, Strattan JS, Davidson JM, Qiu Y, Afzal V, Akiyama JA, Plajzer-Frick I, Novak CS, Kato M, Garvin TH, Pham QT, Harrington AN, Mannion BJ, Lee EA, Fukuda-Yuzawa Y, He Y, Preissl S, Chee S, Han JY, Williams BA, Trout D, Amrhein H, Yang H, Cherry JM, Wang W, Gaulton KJ, Ecker JR, Shen Y, Dickel DE, Visel A, Pennacchio LA, Ren B",
+        journal: "Nature, 2020 Jul;583(7818):744-751",
+        doi: "https://doi.org/10.1038/s41586-020-2093-3",
+      },
+      {
+        title: "A dual mechanism of enhancer activation by FOXA pioneer factors induces endodermal organ fates",
+        authors: "Geusz RJ, Wang A, Lam DK, Vinckier NK, Alysandratos K, Roberts DA, Wang J, Kefalopoulou S, Qiu Y, Chiou J, Gaulton KJ, Ren B, Kotton DN, Sander M",
+        journal: "Nat Commun, 2021 Nov 15;12(1):6623",
+        doi: "https://doi.org/10.1038/s41467-021-26950-0",
+      },
+      {
+        title: "Single Nucleus Multiomic Profiling Reveals Age-Dynamic Regulation of Host Genes Associated with SARS-CoV-2 Infection",
+        authors: "Wang A, Chiou J, Poirion OB, Buchanan J, Valdez MJ, Verheyden JM, Hou X, Guo M, Newsome JM, Kudtarkar P, Faddah DA, Zhang K, Young RE, Barr J, Misra R, Huyck H, Rogers L, Poole C, Whitsett JA, Pryhuber G, Xu Y, Gaulton KJ, Preissl S, Sun X, NHLBI LungMap Consortium",
+        journal: "eLife, 2020 Nov 9;9:e62522",
+        doi: "https://doi.org/10.7554/eLife.62522",
+      },
+    ],
+  },
+  {
+    year: "2019",
+    papers: [
+      {
+        title: "Nutrient regulation of the islet epigenome controls adaptive insulin secretion",
+        authors: "Wortham M, Liu F, Fleischman JY, Wallace M, Mulas F, Vinckier NK, Harrington AR, Cross BR, Chiou J, Patel NA, Sui Y, Jhala US, Shirihai OS, Huising MO, Gaulton KJ, Metallo CM, Sander M",
+        journal: "J Clin Invest, 2023 Apr 3;133(7):e165208",
+        doi: "https://doi.org/10.1172/JCI165208",
+      },
+      {
+        title: "Maternal and fetal genetic effects on birth weight and their relevance to cardio-metabolic risk factors",
+        authors: "Warrington NM, Beaumont RN, Horikoshi M, Day FR, Helgeland Ø, Laurin C, Bacelis J, Peng S, Hao K, Feenstra B, [...], Gaulton KJ, [...], Freathy RM",
+        journal: "Nat Genet, 2019 May;51(5):804-814",
+        doi: "https://doi.org/10.1038/s41588-019-0403-1",
+      },
+      {
+        title: "Common DNA sequence variation influences 3-dimensional conformation of the human genome",
+        authors: "Gorkin DU, Qiu Y, Hu M, Fletez-Brant K, Liu T, Schmitt AD, Noor A, Chiou J, Gaulton KJ, Sebat J, Li Y, Hansen KD, Ren B",
+        journal: "Genome Biol, 2019 Dec 5;20(1):255",
+        doi: "https://doi.org/10.1186/s13059-019-1855-4",
+      },
+      {
+        title: "The long noncoding RNA ROCKI regulates inflammatory gene expression",
+        authors: "Zhang Q, Chao TC, Patil VS, Qin Y, Tiwari SK, Chiou J, Dobin A, Tsai CM, Li Z, Dang J, Gupta S, Urdahl K, Nizet V, Gingeras TR, Gaulton KJ, Rana TM",
+        journal: "EMBO J, 2019 Mar 27",
+        doi: "https://doi.org/10.15252/embj.2018100041",
+      },
+      {
+        title: "Developing a network view of type 2 diabetes risk pathways through integration of genetic, genomic and functional data",
+        authors: "Fernandez-Tajes J, Gaulton KJ, van de Bunt M, Torres J, Thurner M, Mahajan A, Gloyn AL, Lage K, McCarthy MI",
+        journal: "Genome Med, 2019 Mar 26;11(1):19",
+        doi: "https://doi.org/10.1186/s13073-019-0628-8",
+      },
+      {
+        title: "Trans-ethnic kidney function association study reveals putative causal genes and effects on kidney-specific disease aetiologies",
+        authors: "Morris AP, Le TH, Wu H, Akbarov A, van der Most PJ, Hemani G, Smith GD, Mahajan A, Gaulton KJ, [...], Franceschini N",
+        journal: "Nature Commun, 2019 Jan 3;10(1):29",
+        doi: "https://doi.org/10.1038/s41467-018-07867-7",
+      },
+      {
+        title: "Pancreatic islet chromatin accessibility and conformation defines distal enhancer networks of type 2 diabetes risk",
+        authors: "Greenwald WW, Chiou J, Yan J, Qiu Y, Dai N, Wang A, Nariai N, Aylward A, Han JY, Kadakia N, Barrufet N, Okino M, Drees F, Vinckier N, Minichiello L, Gorkin D, Avruch J, Frazer K, Sander M, Ren B, Gaulton KJ",
+        journal: "Nat Commun, 2019 May 8;10(1):2078",
+        doi: "https://doi.org/10.1038/s41467-019-09975-4",
+      },
+    ],
+  },
+  {
+    year: "2018",
+    papers: [
+      {
+        title: "Shared genetic contribution to type 1 and type 2 diabetes risk",
+        authors: "Aylward A, Chiou J, Okino M, Kadakia N, Gaulton KJ",
+        journal: "Hum Mol Genet, 2018 Nov 7",
+        doi: "https://doi.org/10.1093/hmg/ddy314",
+      },
+      {
+        title: "Clustering of Type 2 Diabetes Genetic Loci by Multi-Trait Associations Identifies Disease Mechanisms and Subtypes",
+        authors: "Udler M, Kim J, Grotthuss M, Bonas-Guarch S, Mercader JM, Cole JB, Chiou J, Anderson CD, Boehnke M, Laakso M, Atzmon G, Glaser B, Gaulton KJ, Flannick J, Getz G, Florez JC",
+        journal: "PLoS Med, 2018 Sep 21",
+        doi: "https://doi.org/10.1371/journal.pmed.1002654",
+      },
+      {
+        title: "Integration of human pancreatic islet genomic data refines regulatory mechanisms at Type 2 Diabetes susceptibility loci",
+        authors: "Thurner M, van de Bunt M, Torres JM, Mahajan A, Nylander V, Bennett AJ, Gaulton KJ, Barrett A, Burrows C, Bell CG, Lowe R, Beck S, Rakyan VK, Gloyn AL, McCarthy MI",
+        journal: "Elife, 2018 Feb 7;7:e31977",
+        doi: "https://doi.org/10.7554/eLife.31977",
+      },
+      {
+        title: "Sequence data and association statistics from 12,940 type 2 diabetes cases and controls",
+        authors: "Flannick J, Fuchsberger C, Mahajan A, Teslovich TM, Agarwala V, Gaulton KJ, [...], McCarthy MI",
+        journal: "Sci Data, 2018 Jan 23;5:180002",
+        doi: "https://doi.org/10.1038/sdata.2018.2",
+      },
+    ],
+  },
+  {
+    year: "2017",
+    papers: [
+      {
+        title: "Large-scale GWAS identifies multiple loci for hand grip strength providing biological insights into muscular fitness",
+        authors: "Willems SM, Wright DJ, Day FR, Trajanoska K, Joshi PK, Morris JA, [...], Gaulton KJ, [...], Scott RA",
+        journal: "Nat Commun, 2017 Jul 12;8:16015",
+        doi: "https://doi.org/10.1038/ncomms16015",
+      },
+      {
+        title: "Evaluating the contribution of rare variants to type 2 diabetes and related traits using pedigrees",
+        authors: "Jun G, Manning A, Almeida M, Zawistowski M, Wood AR, Teslovich TM, Fuchsberger C, Feng S, Cingolani P, Gaulton KJ, [...], Blangero J",
+        journal: "Proc Natl Acad Sci U S A, 2018 Jan 9;115(2):379-384",
+        doi: "https://doi.org/10.1073/pnas.1705859115",
+      },
+      {
+        title: "Genome-wide Association Study of Blood Pressure Traits by Hispanic/Latino Background: the Hispanic Community Health Study/Study of Latinos",
+        authors: "Sofer T, Wong Q, Hartwig FP, Taylor K, Warren HR, Evangelou E, Cabrera CP, Levy D, Kramer H, Lange LA, Horta BL, COGENT-BP consortium, Kerr KF, Reiner AP, Franceschini N",
+        journal: "Sci Rep, 2017 Sep 4;7(1):10348",
+        doi: "https://doi.org/10.1038/s41598-017-09019-1",
+      },
+      {
+        title: "Mechanisms of Type 2 Diabetes Risk Loci",
+        authors: "Gaulton KJ",
+        journal: "Curr Diab Rep, 2017 Sep;17(9):72",
+        doi: "https://doi.org/10.1007/s11892-017-0908-x",
+      },
+      {
+        title: "An Expanded Genome-Wide Association Study of Type 2 Diabetes in Europeans",
+        authors: "Scott RA, Scott LJ, Mägi R, Marullo L, Gaulton KJ, [...], Prokopenko I, DIAbetes Genetics Replication And Meta-analysis (DIAGRAM) Consortium",
+        journal: "Diabetes, 2017 Nov;66(11):2888-2902",
+        doi: "https://doi.org/10.2337/db16-1253",
+      },
+      {
+        title: "Single-trait and multi-trait genome-wide association analyses identify novel loci for blood pressure in African-ancestry populations",
+        authors: "Liang J, Le TH, Edwards DRV, Tayo BO, Gaulton KJ, [...], Franceschini N",
+        journal: "PLoS Genet, 2017 May 12;13(5):e1006728",
+        doi: "https://doi.org/10.1371/journal.pgen.1006728",
+      },
+      {
+        title: "A Low-Frequency Inactivating AKT2 Variant Enriched in the Finnish Population Is Associated With Fasting Insulin Levels and Type 2 Diabetes Risk",
+        authors: "Manning A, Highland HM, Gasser J, Sim X, Tukiainen T, Fontanillas P, [...], Gaulton KJ, [...], Gloyn AL, Lindgren CM",
+        journal: "Diabetes, 2017 Jul;66(7):2019-2032",
+        doi: "https://doi.org/10.2337/db16-1329",
+      },
+      {
+        title: "Decreased STARD10 Expression Is Associated with Defective Insulin Secretion in Humans and Mice",
+        authors: "Carrat GR, Hu M, Nguyen-Tu MS, Chabosseau P, Gaulton KJ, van de Bunt M, Siddiq A, Falchi M, Thurner M, Canouil M, Pattou F, Leclerc I, Pullen TJ, Cane MC, Prabhala P, Greenwald W, Schulte A, Marchetti P, Ibberson M, MacDonald PE, Manning Fox JE, Gloyn AL, Froguel P, Solimena M, McCarthy MI, Rutter GA",
+        journal: "Am J Hum Genet, 2017 Feb 2;100(2):238-256",
+        doi: "https://doi.org/10.1016/j.ajhg.2017.01.011",
+      },
+      {
+        title: "Integrative genomic analysis implicates limited peripheral adipose storage capacity in the pathogenesis of human insulin resistance",
+        authors: "Lotta LA, Gulati P, Day FR, Payne F, Ongen H, van de Bunt M, Gaulton KJ, [...], Scott RA",
+        journal: "Nat Genet, 2017 Jan;49(1):17-26",
+        doi: "https://doi.org/10.1038/ng.3714",
+      },
+    ],
+  },
+  {
+    year: "2016",
+    papers: [
+      {
+        title: "Detection of human adaptation during the past 2000 years",
+        authors: "Field Y, Boyle EA, Telis N, Gao Z, Gaulton KJ, Golan D, Yengo L, Rocheleau G, Froguel P, McCarthy MI, Pritchard JK",
+        journal: "Science, 2016 Nov 11;354(6313):760-764",
+        doi: "https://doi.org/10.1126/science.aag0776",
+      },
+      {
+        title: "Genome-wide associations for birth weight and correlations with adult disease",
+        authors: "Horikoshi M, Beaumont RN, Day FR, Warrington NM, Kooijman MN, Fernandez-Tajes J, [...], Gaulton KJ, [...], McCarthy MI, Freathy RM",
+        journal: "Nature, 2016 Oct 13;538(7624):248-252",
+        doi: "https://doi.org/10.1038/nature19806",
+      },
+      {
+        title: "Trans-ethnic Fine Mapping Highlights Kidney-Function Genes Linked to Salt Sensitivity",
+        authors: "Mahajan A, Rodan AR, Le TH, Gaulton KJ, [...], Franceschini N",
+        journal: "Am J Hum Genet, 2016 Sep 1;99(3):636-646",
+        doi: "https://doi.org/10.1016/j.ajhg.2016.07.012",
+      },
+      {
+        title: "The genetic architecture of type 2 diabetes",
+        authors: "Fuchsberger C, Flannick J, Teslovich TM, Mahajan A, Agarwala V, Gaulton KJ, [...], McCarthy MI",
+        journal: "Nature, 2016 Aug 4;536(7614):41-47",
+        doi: "https://doi.org/10.1038/nature18642",
+      },
+      {
+        title: "Trans-ethnic Meta-analysis and Functional Annotation Illuminates the Genetic Architecture of Fasting Glucose and Insulin",
+        authors: "Liu CT, Raghavan S, Maruthur N, Kabagambe EK, Hong J, Ng MC, Hivert MF, Lu Y, An P, Bentley AR, Drolet AM, Gaulton KJ, [...], Meigs JB",
+        journal: "Am J Hum Genet, 2016 Jul 7;99(1):56-75",
+        doi: "https://doi.org/10.1016/j.ajhg.2016.05.006",
+      },
+    ],
+  },
+  {
+    year: "2015",
+    papers: [
+      {
+        title: "A new strategy for enhancing imputation quality of rare variants from next-generation sequencing data via combining SNP and exome chip data",
+        authors: "Kim YJ, Lee J, Kim BJ, T2D-Genes Consortium, Park T",
+        journal: "BMC Genomics, 2015 Dec 29;16:1109",
+        doi: "https://doi.org/10.1186/s12864-015-2192-y",
+      },
+      {
+        title: "Multiple Hepatic Regulatory Variants at the GALNT2 GWAS Locus Associated with High-Density Lipoprotein Cholesterol",
+        authors: "Roman TS, Marvelle AF, Fogarty MP, Vadlamudi S, Gonzalez AJ, Buchkovich ML, Huyghe JR, Fuchsberger C, Jackson AU, Wu Y, Civelek M, Lusis AJ, Gaulton KJ, Sethupathy P, Kangas AJ, Soininen P, Ala-Korpela M, Kuusisto J, Collins FS, Laakso M, Boehnke M, Mohlke KL",
+        journal: "Am J Hum Genet, 2015 Dec 3;97(6):801-15",
+        doi: "https://doi.org/10.1016/j.ajhg.2015.10.016",
+      },
+      {
+        title: "Transcript Expression Data from Human Islets Links Regulatory Signals from Genome-Wide Association Studies for Type 2 Diabetes and Glycemic Traits to Their Downstream Effectors",
+        authors: "van de Bunt M, Manning Fox JE, Dai X, Barrett A, Grey C, Li L, Bennett AJ, Johnson PR, Rajotte RV, Gaulton KJ, Dermitzakis ET, MacDonald PE, McCarthy MI, Gloyn AL",
+        journal: "PLoS Genet, 2015 Dec 1;11(12):e1005694",
+        doi: "https://doi.org/10.1371/journal.pgen.1005694",
+      },
+      {
+        title: "Genetic fine mapping and genomic annotation defines causal mechanisms at type 2 diabetes susceptibility loci",
+        authors: "Gaulton KJ, Ferreira T, Lee Y, Raimondo A, Mägi R, Reschen ME, Mahajan A, [...], McCarthy MI, Morris AP, DIAbetes Genetics Replication And Meta-analysis (DIAGRAM) Consortium",
+        journal: "Nat Genet, 2015 Dec;47(12):1415-25",
+        doi: "https://doi.org/10.1038/ng.3437",
+      },
+      {
+        title: "Discovery and Fine-Mapping of Glycaemic and Obesity-Related Trait Loci Using High-Density Imputation",
+        authors: "Horikoshi M, Mägi R, van de Bunt M, Surakka I, Sarin AP, Mahajan A, [...], Gaulton KJ, [...], Morris AP, ENGAGE Consortium",
+        journal: "PLoS Genet, 2015 Jul 1;11(7):e1005230",
+        doi: "https://doi.org/10.1371/journal.pgen.1005230",
+      },
+      {
+        title: "The power of gene-based rare variant methods to detect disease-associated variation and test hypotheses about complex disease",
+        authors: "Moutsianas L, Agarwala V, Fuchsberger C, Flannick J, Rivas MA, Gaulton KJ, Albers PK, GoT2D Consortium, McVean G, Boehnke M, Altshuler D, McCarthy MI",
+        journal: "PLoS Genet, 2015 Apr 23;11(4):e1005165",
+        doi: "https://doi.org/10.1371/journal.pgen.1005165",
+      },
+      {
+        title: "Lipid-induced epigenomic changes in human macrophages identify a coronary artery disease-associated variant that regulates PPAP2B Expression through Altered C/EBP-beta binding",
+        authors: "Reschen ME, Gaulton KJ, Lin D, Soilleux EJ, Morris AJ, Smyth SS, O'Callaghan CA",
+        journal: "PLoS Genet, 2015 Apr 2;11(4):e1005061",
+        doi: "https://doi.org/10.1371/journal.pgen.1005061",
+      },
+      {
+        title: "Identification and functional characterization of G6PC2 coding variants influencing glycemic traits define an effector transcript at the G6PC2-ABCB11 locus",
+        authors: "Mahajan A, Sim X, Ng HJ, Manning A, Rivas MA, Highland HM, [...], Gaulton KJ, [...], Gloyn AL, T2D-GENES consortium and GoT2D consortium",
+        journal: "PLoS Genet, 2015 Jan 27;11(1):e1004876",
+        doi: "https://doi.org/10.1371/journal.pgen.1004876",
+      },
+      {
+        title: "Whole-genome sequencing to understand the genetic architecture of common gene expression and biomarker phenotypes",
+        authors: "Wood AR, Tuke MA, Nalls M, Hernandez D, Gibbs JR, Lin H, Xu CS, Li Q, Shen J, Jun G, Almeida M, Tanaka T, Perry JR, Gaulton KJ, [...], Frayling TM",
+        journal: "Hum Mol Genet, 2015 Mar 1;24(5):1504-12",
+        doi: "https://doi.org/10.1093/hmg/ddu560",
+      },
+    ],
+  },
+  {
+    year: "2014",
+    papers: [
+      {
+        title: "Identification of a regulatory variant that binds FOXA1 and FOXA2 at the CDC123/CAMK1D type 2 diabetes GWAS locus",
+        authors: "Fogarty MP, Cannon ME, Vadlamudi S, Gaulton KJ, Mohlke KL",
+        journal: "PLoS Genet, 2014 Sep 11;10(9):e1004633",
+        doi: "https://doi.org/10.1371/journal.pgen.1004633",
+      },
+      {
+        title: "Rare variants in PPARG with decreased activity in adipocyte differentiation are associated with increased risk of type 2 diabetes",
+        authors: "Majithia AR, Flannick J, Shahinian P, Guo M, Bray MA, Fontanillas P, Gabriel SB, GoT2D Consortium, NHGRI JHS/FHS Allelic Spectrum Project, SIGMA T2D Consortium, T2D-GENES Consortium, Rosen ED, Altshuler D",
+        journal: "Proc Natl Acad Sci U S A, 2014 Sep 9;111(36):13127-32",
+        doi: "https://doi.org/10.1073/pnas.1410428111",
+      },
+      {
+        title: "The South Asian genome",
+        authors: "Chambers JC, Abbott J, Zhang W, Turro E, Scott WR, Tan ST, Afzal U, Afaq S, Loh M, Lehne B, O'Reilly P, Gaulton KJ, [...], Kooner JS",
+        journal: "PLoS One, 2014 Aug 12;9(8):e102645",
+        doi: "https://doi.org/10.1371/journal.pone.0102645",
+      },
+      {
+        title: "Choice of transcripts and software has a large effect on variant annotation",
+        authors: "McCarthy DJ, Humburg P, Kanapin A, Rivas MA, Gaulton K, Cazier JB, Donnelly P",
+        journal: "Genome Med, 2014 Mar 31;6(3):26",
+        doi: "https://doi.org/10.1186/gm543",
+      },
+      {
+        title: "Simulation of Finnish population history, guided by empirical genetic data, to assess power of rare-variant tests in Finland",
+        authors: "Wang SR, Agarwala V, Flannick J, Chiang CW, Altshuler D, GoT2D Consortium, Hirschhorn JN",
+        journal: "Am J Hum Genet, 2014 May 1;94(5):710-20",
+        doi: "https://doi.org/10.1016/j.ajhg.2014.03.019",
+      },
+      {
+        title: "Genome-wide trans-ancestry meta-analysis provides insight into the genetic architecture of type 2 diabetes susceptibility",
+        authors: "DIAbetes Genetics Replication And Meta-analysis (DIAGRAM) Consortium, Asian Genetic Epidemiology Network Type 2 Diabetes (AGEN-T2D) Consortium, South Asian Type 2 Diabetes (SAT2D) Consortium, Mexican American Type 2 Diabetes (MAT2D) Consortium, Type 2 Diabetes Genetic Exploration by Next-generation sequencing in multi-Ethnic Samples (T2D-GENES) Consortium, Mahajan A, Go MJ, Zhang W, Below JE, Gaulton KJ, [...], Morris AP",
+        journal: "Nat Genet, 2014 Mar;46(3):234-44",
+        doi: "https://doi.org/10.1038/ng.2897",
+      },
+      {
+        title: "Whole-exome sequencing identifies rare and low-frequency coding variants associated with LDL cholesterol",
+        authors: "Lange LA, Hu Y, Zhang H, Xue C, Schmidt EM, Tang ZZ, [...], Gaulton K, [...], Willer CJ, NHLBI Grand Opportunity Exome Sequencing Project",
+        journal: "Am J Hum Genet, 2014 Feb 6;94(2):233-45",
+        doi: "https://doi.org/10.1016/j.ajhg.2014.01.010",
+      },
+      {
+        title: "Pancreatic islet enhancer clusters enriched in type 2 diabetes risk-associated variants",
+        authors: "Pasquali L, Gaulton KJ, Rodríguez-Seguí SA, Mularoni L, Miguel-Escalada I, Akerman İ, Tena JJ, Morán I, Gómez-Marín C, van de Bunt M, Ponsa-Cobas J, Castro N, Nammo T, Cebola I, García-Hurtado J, Maestro MA, Pattou F, Piemonti L, Berney T, Gloyn AL, Ravassard P, Skarmeta JLG, Müller F, McCarthy MI, Ferrer J",
+        journal: "Nat Genet, 2014 Feb;46(2):136-143",
+        doi: "https://doi.org/10.1038/ng.2870",
+      },
+    ],
+  },
+  {
+    year: "2013",
+    papers: [
+      {
+        title: "Assessing association between protein truncating variants and quantitative traits",
+        authors: "Rivas MA, Pirinen M, Neville MJ, Gaulton KJ, Moutsianas L, GoT2D Consortium, Lindgren CM, Karpe F, McCarthy MI, Donnelly P",
+        journal: "Bioinformatics, 2013 Oct 1;29(19):2419-26",
+        doi: "https://doi.org/10.1093/bioinformatics/btt409",
+      },
+      {
+        title: "The miRNA profile of human pancreatic islets and beta-cells and relationship to type 2 diabetes pathogenesis",
+        authors: "van de Bunt M, Gaulton KJ, Parts L, Moran I, Johnson PR, Lindgren CM, Ferrer J, Gloyn AL, McCarthy MI",
+        journal: "PLoS One, 2013;8(1):e55272",
+        doi: "https://doi.org/10.1371/journal.pone.0055272",
+      },
+    ],
+  },
+  {
+    year: "Pre-2013",
+    papers: [
+      {
+        title: "Genome-wide association study of homocysteine levels in Filipinos provides evidence for CPS1 in women and a stronger MTHFR effect in young adults",
+        authors: "Lange LA, Croteau-Chonka DC, Marvelle AF, Qin L, Gaulton KJ, Kuzawa CW, McDade TW, Wang Y, Li Y, Levy S, Borja JB, Lange EM, Adair LS, Mohlke KL",
+        journal: "Hum Mol Genet, 2010 May 15;19(10):2050-8",
+        doi: "https://doi.org/10.1093/hmg/ddq062",
+      },
+      {
+        title: "A map of open chromatin in human pancreatic islets",
+        authors: "Gaulton KJ, Nammo T, Pasquali L, Simon JM, Giresi PG, Fogarty MP, Panhuis TM, Mieczkowski P, Secchi A, Bosco D, Berney T, Montanya E, Mohlke KL, Lieb JD, Ferrer J",
+        journal: "Nat Genet, 2010 Mar;42(3):255-9",
+        doi: "https://doi.org/10.1038/ng.530",
+      },
+      {
+        title: "Comprehensive association study of type 2 diabetes and related quantitative traits with 222 candidate genes",
+        authors: "Gaulton KJ, Willer CJ, Li Y, Scott LJ, Conneely KN, Jackson AU, Duren WL, Chines PS, Narisu N, Bonnycastle LL, Luo J, Tong M, Sprau AG, Pugh EW, Doheny KF, Valle TT, Abecasis GR, Tuomilehto J, Bergman RN, Collins FS, Boehnke M, Mohlke KL",
+        journal: "Diabetes, 2008 Nov;57(11):3136-44",
+        doi: "https://doi.org/10.2337/db07-1731",
+      },
+      {
+        title: "A computational system to select candidate genes for complex human traits",
+        authors: "Gaulton KJ, Mohlke KL, Vision TJ",
+        journal: "Bioinformatics, 2007 May 1;23(9):1132-40",
+        doi: "https://doi.org/10.1093/bioinformatics/btm001",
+      },
+    ],
+  },
+];
+
+const totalPapers = publications.reduce((sum, year) => sum + year.papers.length, 0);
+---
+
+<Layout title={`Publications | ${SITE.title}`} description="Publications from the Gaulton Lab at UC San Diego — genetics, epigenomics, and diabetes research.">
+  <Header />
+  <main id="main-content" class="app-layout pb-16">
+    <TerminalBadge path="publications" />
+    <h1 class="text-2xl font-semibold sm:text-3xl mb-4">Publications</h1>
+
+    <nav class="mb-8 flex flex-wrap gap-2" aria-label="Jump to year">
+      {publications.map(yearGroup => (
+        <a
+          href={`#year-${yearGroup.year.toLowerCase().replace(/\s+/g, '-')}`}
+          class="rounded-lg border border-border/25 bg-muted/10 px-2.5 py-1 font-firacode text-xs text-foreground/60 transition-colors duration-200 hover:border-accent/40 hover:bg-accent/5 hover:text-accent"
+        >
+          {yearGroup.year}
+        </a>
+      ))}
+    </nav>
+
+    {publications.map(yearGroup => (
+      <section id={`year-${yearGroup.year.toLowerCase().replace(/\s+/g, '-')}`} class="mb-10 scroll-mt-20">
+        <div class="mb-4 flex items-center gap-3">
+          <h2 class="text-sm font-bold tracking-widest uppercase">{yearGroup.year}</h2>
+          <div class="h-px flex-1 bg-border/20" />
+          <span class="font-firacode text-xs text-accent/40 select-none">[{yearGroup.papers.length}]</span>
+        </div>
+
+        <ul class="space-y-3">
+          {yearGroup.papers.map(paper => (
+            <li class="pub-card group/card relative rounded-2xl border border-border/25 bg-muted/10 backdrop-blur-sm overflow-hidden transition-[border-color,background-color,box-shadow] duration-300 ease-out motion-reduce:transition-none hover:border-accent/40 hover:bg-accent/5">
+              <div class="pub-glow pointer-events-none absolute inset-0 z-0 rounded-2xl opacity-0 transition-opacity duration-300 motion-reduce:transition-none group-hover/card:opacity-100" aria-hidden="true" />
+              <div class="relative z-5 p-4 sm:p-5">
+                <h3 class="text-base font-semibold leading-snug text-foreground transition-colors duration-200 group-hover/card:text-accent">
+                  {paper.doi ? (
+                    <a href={paper.doi} target="_blank" rel="noopener noreferrer" class="hover:underline">{paper.title}</a>
+                  ) : (
+                    paper.title
+                  )}
+                </h3>
+                <p class="mt-1.5 text-xs leading-relaxed text-foreground/50">{paper.authors}</p>
+                <p class="mt-1 text-sm text-foreground/65">{paper.journal}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .pub-card {
+    contain: paint;
+  }
+
+  .pub-glow {
+    background: radial-gradient(
+      400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      color-mix(in oklab, var(--accent) 8%, transparent) 0%,
+      color-mix(in oklab, var(--accent) 4%, transparent) 30%,
+      color-mix(in oklab, var(--accent) 0.8%, transparent) 60%,
+      transparent 80%
+    );
+    will-change: opacity;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pub-glow {
+      background: none;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    document.querySelectorAll<HTMLElement>(".pub-card").forEach(card => {
+      card.addEventListener("mousemove", (e: MouseEvent) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+        card.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+      });
+    });
+  });
+</script>

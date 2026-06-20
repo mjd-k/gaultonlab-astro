@@ -304,17 +304,17 @@ const showGrain = SITE.backdropEffects.grain;
     position: absolute;
     left: 0;
     top: 0;
-    width: 800px;
-    height: 800px;
-    margin-left: -400px;
-    margin-top: -400px;
+    width: 600px;
+    height: 600px;
+    margin-left: -300px;
+    margin-top: -300px;
     transform: translate(var(--site-cx, 50vw), var(--site-cy, 50vh)) translateZ(0);
     background: radial-gradient(
       circle,
-      color-mix(in oklab, var(--accent) 8%, transparent) 0%,
-      color-mix(in oklab, var(--accent) 3%, transparent) 40%,
+      color-mix(in oklab, var(--accent) 4%, transparent) 0%,
       transparent 70%
     );
+    filter: blur(40px);
     opacity: 0;
     transition: opacity 0.5s ease;
     pointer-events: none;

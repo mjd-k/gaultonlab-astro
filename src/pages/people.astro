@@ -1,0 +1,361 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import TerminalBadge from "@/components/TerminalBadge.astro";
+import { Image } from "astro:assets";
+import { SITE } from "@/config";
+
+import photoKyle from "@/assets/images/people/Kyle.png";
+import photoParul from "@/assets/images/people/Parul.png";
+import photoYing from "@/assets/images/people/Ying.png";
+import photoSierra from "@/assets/images/people/Sierra.png";
+import photoYuna from "@/assets/images/people/Yuna.png";
+import photoSara from "@/assets/images/people/Sara.png";
+import photoLiza from "@/assets/images/people/Liza.png";
+import photoLuca from "@/assets/images/people/Luca.png";
+import photoEmily from "@/assets/images/people/Emily.png";
+import photoRebecca from "@/assets/images/people/Rebecca.png";
+import photoAlex from "@/assets/images/people/Alex-Ghaben.png";
+import photoMei from "@/assets/images/people/Mei.png";
+import photoHannah from "@/assets/images/people/Hannah.png";
+import photoWeston from "@/assets/images/people/Weston.png";
+import photoTan from "@/assets/images/people/Tan.png";
+import photoMegan from "@/assets/images/people/Megan.png";
+import photoShivani from "@/assets/images/people/Shivani.png";
+import photoMaddie from "@/assets/images/people/Maddie.png";
+import photoMatt from "@/assets/images/people/Matt.png";
+import photoParwana from "@/assets/images/people/Parwana.png";
+import photoIrene from "@/assets/images/people/Irene.png";
+import photoRebeccaT from "@/assets/images/people/Rebecca_Tseng.png";
+import photoAllie from "@/assets/images/people/Allie.png";
+import photoLeyan from "@/assets/images/people/Leyan.png";
+
+const members = [
+  {
+    name: "Kyle Jeffrie Gaulton",
+    photo: photoKyle,
+    title: "Associate Professor",
+    education: [
+      "UPenn BAS Computer Science",
+      "UNC Chapel Hill PhD Genetics and Molecular Biology",
+    ],
+  },
+  {
+    name: "Parul Kudtarkar",
+    photo: photoParul,
+    title: "Programmer",
+    education: [
+      "University of Mumbai BE Biomedical Engineering",
+      "Northeastern MS Bioinformatics",
+    ],
+  },
+  {
+    name: "Ying Sun",
+    photo: photoYing,
+    title: "Programmer",
+    education: ["University of Illinois Chicago MS Bioinformatics"],
+  },
+  {
+    name: "Sierra Corban",
+    photo: photoSierra,
+    title: "Research Associate",
+    education: ["Biola University BS Biological Sciences"],
+  },
+  {
+    name: "Yuna Lee",
+    photo: photoYuna,
+    title: "Research Associate",
+    education: ["UCSD BS Biology: Bioinformatics"],
+  },
+  {
+    name: "Sara Narayanaswamy",
+    photo: photoSara,
+    title: "Programmer",
+    education: [
+      "Vellore Institute of Technology BTech Biotechnology",
+      "Northeastern University MS Bioinformatics",
+    ],
+  },
+  {
+    name: "Liza Brusman",
+    photo: photoLiza,
+    title: "Programmer",
+    education: [
+      "UCSD BS Human Biology",
+      "UCSD MS Biology",
+      "University of Colorado Boulder PhD Molecular, Cellular, and Developmental Biology",
+    ],
+  },
+  {
+    name: "Luca Tucciarone",
+    photo: photoLuca,
+    title: "Postdoc",
+    education: [
+      "Sapienza University PhD Morphogenesis and Tissue Engineering",
+    ],
+  },
+  {
+    name: "Emily Griffin",
+    photo: photoEmily,
+    title: "Postdoc",
+    education: ["USC BS Neuroscience", "UCSD PhD Biomedical Sciences"],
+  },
+  {
+    name: "Rebecca Melton",
+    photo: photoRebecca,
+    title: "Postdoc",
+    education: [
+      "SFSU BS Biology: Physiology",
+      "SFSU MS Biology: Physiology and Behavior",
+      "UCSD PhD Biomedical Sciences",
+    ],
+  },
+  {
+    name: "Alex Ghaben",
+    photo: photoAlex,
+    title: "Pediatric Endocrinology Fellow",
+    education: [
+      "MIT BS Chemical-Biological Engineering and Biology",
+      "UT Southwestern MD/PhD Integrative Biology",
+    ],
+  },
+  {
+    name: "Mei-Lin Okino",
+    photo: photoMei,
+    title: "PhD Candidate, Biomedical Sciences",
+    education: ["UCSD BS Bioinformatics"],
+  },
+  {
+    name: "Hannah Mummey",
+    photo: photoHannah,
+    title: "PhD Candidate, Bioinformatics and Systems Biology",
+    education: ["Wellesley College BA Biochemistry"],
+  },
+  {
+    name: "Weston Elison",
+    photo: photoWeston,
+    title: "PhD Candidate, Biomedical Sciences",
+    education: ["Brigham Young University BS Physiology and Developmental Biology"],
+  },
+  {
+    name: "Tanmayi Vashist",
+    photo: photoTan,
+    title: "PhD Student, Biomedical Sciences",
+    education: ["Duke University BS Biology"],
+  },
+  {
+    name: "Megan Huang",
+    photo: photoMegan,
+    title: "PhD Student, Biomedical Sciences",
+    education: ["UCSD BS Biochemistry and Cell Biology"],
+  },
+  {
+    name: "Shivani Lakkaraju",
+    photo: photoShivani,
+    title: "MD/PhD Student, Biomedical Sciences (co-mentored by Bing Ren)",
+    education: ["UCSD BS Human Biology"],
+  },
+  {
+    name: "Madeleine Pittigher",
+    photo: photoMaddie,
+    title: "PhD Student, Bioinformatics and Systems Biology",
+    education: ["Brown University BS Computational Biology"],
+  },
+  {
+    name: "Matthew J Kim",
+    photo: photoMatt,
+    title: "MD/PhD Student, Biomedical Sciences",
+    education: ["Cornell University BS Biological Engineering"],
+  },
+  {
+    name: "Parwana Khazi",
+    photo: photoParwana,
+    title: "MD/PhD Student, Biomedical Sciences",
+    education: [
+      "Santa Clara University BS Biomedical Biology and Public Health Science, BA Spanish Studies",
+      "UCLA Master's Social Science: Anthropology",
+    ],
+  },
+  {
+    name: "Irene Song",
+    photo: photoIrene,
+    title: "Master's Student, Bioengineering",
+    education: ["Stony Brook University BE Biomedical Engineering"],
+  },
+  {
+    name: "Rebecca Tseng",
+    photo: photoRebeccaT,
+    title: "Undergraduate Researcher",
+    education: ["UCSD"],
+  },
+  {
+    name: "Allie Shi",
+    photo: photoAllie,
+    title: "Undergraduate Researcher",
+    education: ["UCSD"],
+  },
+  {
+    name: "Leyan Huang",
+    photo: photoLeyan,
+    title: "Undergraduate Researcher",
+    education: ["UCSD"],
+  },
+];
+
+const alumni = [
+  {
+    category: "Graduate Students",
+    members: [
+      "Anthony Aylward (2016–2021)",
+      "Whitney Vien (2017)",
+      "Joshua Chiou (2017–2021)",
+      "Jackie Newsome (2018–2024)",
+      "Sigal Shaul (2019)",
+      "Carolyn Mcgrail (2020–2024)",
+      "Ruth Elgamal (2020–2024)",
+    ],
+  },
+  {
+    category: "Postdoctoral Researchers",
+    members: [
+      "Paola Benaglio (2018–2022)",
+      "Jaspreet Kaur (2018–2021)",
+      "Abigail Howell (2024–2025)",
+    ],
+  },
+  {
+    category: "Undergraduate Researchers",
+    members: [
+      "Hudson Cooper (2016–2017)",
+      "Serina Huang (2016–2018)",
+      "Samuel Morabito (2016–2018)",
+      "Mei-Lin Okino (2016–2018)",
+      "Christopher Wong (2017)",
+      "Unnati Ghandi (2017)",
+      "Alison Deogaygay (2017–2019)",
+      "Elisha Beebe (2018–2019)",
+      "Ariana Golshani (2019–2022)",
+      "Katha Kaogonkar (2019–2020)",
+      "Sharlene Diep (2019–2021)",
+      "Kennedy Vanderstel (2021–2022)",
+      "Harnidh Kaur (2021–2024)",
+      "Jovina Djulamsah (2022–2023)",
+      "Bailey Omahony (2023–2025)",
+    ],
+  },
+  {
+    category: "Summer Students",
+    members: [
+      "Bryttany Weary",
+      "Isis Diaz",
+      "Andres Padilla",
+      "Griselda Ruiz",
+      "Hermak Banda",
+      "Karla Martinez",
+      "Eamon Aalipour",
+      "Olivia Golston",
+    ],
+  },
+];
+---
+
+<Layout title={`People | ${SITE.title}`} description="Meet the researchers, students, and staff of the Gaulton Lab at UC San Diego.">
+  <Header />
+  <main id="main-content" class="app-layout pb-16">
+    <TerminalBadge path="people" />
+    <h1 class="text-2xl font-semibold sm:text-3xl mb-8">People</h1>
+
+    <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {members.map(member => (
+        <li
+          class:list={[
+            "person-card group/card relative rounded-2xl",
+            "border border-border/25 bg-muted/10 backdrop-blur-sm",
+            "transition-[border-color,background-color,box-shadow,transform] duration-300 ease-out",
+            "motion-reduce:transform-none motion-reduce:transition-none",
+            "hover:-translate-y-0.5 hover:border-accent/40 hover:bg-accent/5",
+            "hover:shadow-lg hover:shadow-accent/10",
+          ]}
+        >
+          <div class="person-glow pointer-events-none absolute inset-0 z-0 rounded-2xl opacity-0 transition-opacity duration-300 motion-reduce:transition-none group-hover/card:opacity-100" aria-hidden="true" />
+          <div class="relative z-5 p-5">
+            <div class="mb-4 flex justify-center">
+              <Image
+                src={member.photo}
+                alt={member.name}
+                class="size-28 rounded-full object-cover ring-2 ring-border/20 transition-all duration-300 group-hover/card:ring-accent/40"
+                width={112}
+                height={112}
+              />
+            </div>
+            <div class="mb-1 text-center text-lg font-semibold text-foreground transition-colors duration-200 group-hover/card:text-accent">
+              {member.name}
+            </div>
+            <div class="text-center text-sm font-medium text-accent/80">
+              {member.title}
+            </div>
+            <ul class="mt-3 space-y-1 text-center">
+              {member.education.map(edu => (
+                <li class="text-xs leading-relaxed text-foreground/55">{edu}</li>
+              ))}
+            </ul>
+          </div>
+        </li>
+      ))}
+    </ul>
+
+    <section class="mt-16">
+      <div class="mb-6 flex items-center gap-3">
+        <h2 class="text-sm font-bold tracking-widest uppercase">Lab Alumni</h2>
+        <div class="h-px flex-1 bg-border/20" />
+      </div>
+      {alumni.map(group => (
+        <div class="mb-6">
+          <h3 class="mb-2 text-sm font-semibold text-foreground/80">{group.category}</h3>
+          <ul class="grid grid-cols-1 gap-x-8 gap-y-1.5 sm:grid-cols-2 lg:grid-cols-3">
+            {group.members.map(member => (
+              <li class="text-sm text-foreground/55">{member}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .person-card {
+    contain: paint;
+  }
+
+  .person-glow {
+    background: radial-gradient(
+      350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      color-mix(in oklab, var(--accent) 8%, transparent) 0%,
+      color-mix(in oklab, var(--accent) 4%, transparent) 30%,
+      color-mix(in oklab, var(--accent) 0.8%, transparent) 60%,
+      transparent 80%
+    );
+    will-change: opacity;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .person-glow {
+      background: none;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    document.querySelectorAll<HTMLElement>(".person-card").forEach(card => {
+      card.addEventListener("mousemove", (e: MouseEvent) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+        card.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+      });
+    });
+  });
+</script>

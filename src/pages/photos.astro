@@ -1,0 +1,123 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import TerminalBadge from "@/components/TerminalBadge.astro";
+import { Image } from "astro:assets";
+import { SITE } from "@/config";
+
+import ashgHouston2019 from "@/assets/images/photos/ASHG_Houston_2019.jpeg";
+import christmasParty2020 from "@/assets/images/photos/Christmas_Party_2020.png";
+import elishaGoingAway2021 from "@/assets/images/photos/Elisha_going_away_2021.jpg";
+import christmasParty2021 from "@/assets/images/photos/Christmas_Party_2021.png";
+import christmasParty2022 from "@/assets/images/photos/Christmas_Party_2022.jpg";
+import sierraBday2023 from "@/assets/images/photos/Sierra_Bday_2023.jpg";
+import cpkLunch2022 from "@/assets/images/photos/CPK_Lunch_2022.jpg";
+import jdrfWalk2022 from "@/assets/images/photos/JDRF_walk_2022.jpg";
+import riggsSymposium2022 from "@/assets/images/photos/Riggs_Symposium_2022.jpg";
+import img6623 from "@/assets/images/photos/IMG_6623.jpg";
+import ashgNola2022 from "@/assets/images/photos/ASHG_NOLA_2022.png";
+import ada2023 from "@/assets/images/photos/ADA_2023.jpg";
+import distractors2024 from "@/assets/images/photos/DistrActors_Fundraiser_2024.jpg";
+import carolynDefense2024 from "@/assets/images/photos/Carolyn_Defense_2024.jpg";
+import halloween2024 from "@/assets/images/photos/Halloween_2024_1.jpg";
+import ruthDefense2024 from "@/assets/images/photos/Ruth_Defense_2024.jpg";
+import labPicture2018 from "@/assets/images/photos/Lab_Picture_2018.jpg";
+import jdrfWalk2023 from "@/assets/images/photos/JDRF_Walk_2023.jpg";
+import holidayParty2024 from "@/assets/images/photos/Holiday-Party-2024.jpg";
+
+const photos = [
+  { src: holidayParty2024, caption: "Holiday Party 2024" },
+  { src: halloween2024, caption: "Halloween 2024" },
+  { src: ruthDefense2024, caption: "Ruth's Defense 2024" },
+  { src: carolynDefense2024, caption: "Carolyn's Defense 2024" },
+  { src: distractors2024, caption: "DistrActors Fundraiser 2024" },
+  { src: jdrfWalk2023, caption: "JDRF Walk 2023" },
+  { src: ada2023, caption: "ADA 2023" },
+  { src: sierraBday2023, caption: "Sierra's Birthday 2023" },
+  { src: christmasParty2022, caption: "Christmas Party 2022" },
+  { src: ashgNola2022, caption: "ASHG New Orleans 2022" },
+  { src: riggsSymposium2022, caption: "Riggs Symposium 2022" },
+  { src: jdrfWalk2022, caption: "JDRF Walk 2022" },
+  { src: cpkLunch2022, caption: "CPK Lunch 2022" },
+  { src: christmasParty2021, caption: "Christmas Party 2021" },
+  { src: elishaGoingAway2021, caption: "Elisha Going Away 2021" },
+  { src: christmasParty2020, caption: "Christmas Party 2020" },
+  { src: ashgHouston2019, caption: "ASHG Houston 2019" },
+  { src: labPicture2018, caption: "Lab Picture 2018" },
+  { src: img6623, caption: "Lab Outing" },
+];
+---
+
+<Layout title={`Photos | ${SITE.title}`} description="Photos from the Gaulton Lab at UC San Diego — conferences, celebrations, and lab life.">
+  <Header />
+  <main id="main-content" class="app-layout pb-16">
+    <TerminalBadge path="photos" />
+    <h1 class="text-2xl font-semibold sm:text-3xl mb-8">Photos</h1>
+
+    <ul class="photo-grid grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {photos.map(photo => (
+        <li class="photo-card group/card relative flex flex-col rounded-2xl border border-border/25 bg-muted/10 backdrop-blur-sm overflow-hidden transition-[border-color,background-color,box-shadow,transform] duration-300 ease-out motion-reduce:transform-none motion-reduce:transition-none hover:-translate-y-0.5 hover:border-accent/40 hover:bg-accent/5 hover:shadow-lg hover:shadow-accent/10">
+          <div class="photo-glow pointer-events-none absolute inset-0 z-0 rounded-2xl opacity-0 transition-opacity duration-300 motion-reduce:transition-none group-hover/card:opacity-100" aria-hidden="true" />
+          <Image
+            src={photo.src}
+            alt={photo.caption}
+            class="photo-img relative z-5 w-full object-cover"
+            widths={[400, 800]}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
+          <div class="relative z-5 px-4 py-3">
+            <p class="text-sm font-medium text-foreground/70 transition-colors duration-200 group-hover/card:text-accent">
+              {photo.caption}
+            </p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .photo-grid {
+    grid-auto-rows: 1fr;
+  }
+
+  .photo-card {
+    contain: paint;
+  }
+
+  .photo-img {
+    aspect-ratio: 4 / 3;
+    flex-shrink: 0;
+  }
+
+  .photo-glow {
+    background: radial-gradient(
+      350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      color-mix(in oklab, var(--accent) 8%, transparent) 0%,
+      color-mix(in oklab, var(--accent) 4%, transparent) 30%,
+      color-mix(in oklab, var(--accent) 0.8%, transparent) 60%,
+      transparent 80%
+    );
+    will-change: opacity;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .photo-glow {
+      background: none;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    document.querySelectorAll<HTMLElement>(".photo-card").forEach(card => {
+      card.addEventListener("mousemove", (e: MouseEvent) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+        card.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+      });
+    });
+  });
+</script>

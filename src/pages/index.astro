@@ -1,29 +1,65 @@
 ---
-import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Socials from "@/components/Socials.astro";
-import LinkButton from "@/components/LinkButton.astro";
-import Card from "@/components/Card.astro";
-import getSortedPosts from "@/utils/getSortedPosts";
-import IconRss from "@/assets/icons/IconRss.svg";
-import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
+import TerminalBadge from "@/components/TerminalBadge.astro";
+import CellNetwork from "@/components/CellNetwork.astro";
+import { Image } from "astro:assets";
 import { SITE } from "@/config";
 import { SOCIALS } from "@/constants";
-import IntroAudio from "@/components/IntroAudio.astro";
 
-const [blogPosts, galleryPosts] = await Promise.all([
-  getCollection("blog"),
-  SITE.showGalleries && SITE.showGalleriesInIndex
-    ? getCollection("galleries")
-    : Promise.resolve([]),
-]);
-const posts = [...blogPosts, ...galleryPosts];
+import imgEpigenomics from "@/assets/images/research/1_sc_epigenomics.png";
+import imgStress from "@/assets/images/research/2_stress.png";
+import imgPopGenetics from "@/assets/images/research/3_pop_genetics.png";
+import imgDatabases from "@/assets/images/research/4_databases.png";
+import imgRiskPrediction from "@/assets/images/research/disease_risk_prediction.png";
+import imgTherapeutic from "@/assets/images/research/therapeutic_targets.png";
 
-const sortedPosts = getSortedPosts(posts);
-const featuredPosts = sortedPosts.filter(({ data }) => "featured" in data && data.featured);
-const recentPosts = sortedPosts.filter(({ data }) => !("featured" in data && data.featured));
+const researchAreas = [
+  {
+    title: "Single Cell Epigenomics of Human Tissues",
+    image: imgEpigenomics,
+    alt: "Single cell epigenomics of human tissues",
+    description:
+      "Because the vast majority of disease-causing variants lie in non-coding regions of the human genome, understanding gene regulation is critical for understanding disease risk. Our lab is particularly interested in regions of the genome which influence the expression of nearby genes, aka cis-regulatory elements (CREs), and the regulatory networks they create. We have many completed and ongoing projects which use single cell methods to characterize the epigenome of human tissues including the pancreas, lungs, heart, liver, peripheral blood mononuclear cells (PBMCs), and more.",
+  },
+  {
+    title: "In Vitro Models of Disease",
+    image: imgStress,
+    alt: "Islet Stress",
+    description:
+      "Environmental stressors are predicted to play a role in the pathogenesis of diabetes, but their effects on the islet transcriptome and epigenome are largely unknown. Our lab uses a variety of small molecules and proteins to perform in vitro modeling of environmental stressors that pancreatic beta cells might be subject to, such as oxidative or ER stress. Downstream genetic analyses (scRNA-seq, snATAC-seq, etc.) help us to understand the effects of these stressors and how they relate to diabetes risk in humans.",
+  },
+  {
+    title: "Population Genetics",
+    image: imgPopGenetics,
+    alt: "Population genetics",
+    description:
+      "Diabetes is the most common metabolic disease worldwide. Our lab takes a population genetics approach to understanding underlying genetic risk in both type 1 and type 2 diabetes. We previously generated the largest genome-wide association study (GWAS) for type 1 diabetes to date, and our recent work in this area includes generating polygenic risk scores for disease along with quantitative trait loci mapping, particularly in human pancreatic islets.",
+  },
+  {
+    title: "Resources and Tools",
+    image: imgDatabases,
+    alt: "CMDGA",
+    description:
+      "Our lab takes part in several collaborative efforts to improve access and availability of scientific data and analytical pipelines. Our lab maintains key resources such as PanKBase, the Common Metabolic Diseases Genome Atlas (CMDGA), and the Knowledge Portal. Additionally, we aim to create resources and tools for the community to engage with our lab's primary data.",
+  },
+  {
+    title: "Disease Risk Prediction",
+    image: imgRiskPrediction,
+    alt: "Disease Risk Prediction",
+    description:
+      "Accurately predicting disease risk is crucial for preventing complications, guiding the selection of preventative therapies, and enhancing population-wide screening. Our lab aims to improve risk prediction in complex diseases, such as type 1 diabetes, by generating genetic risk scores (GRS) and identifying causal biomarkers that can be used to inform personalized medicine and improve early detection of disease. Our recent work includes developing a machine learning GRS and discovering novel metabolite biomarkers that significantly improve the accuracy of risk prediction.",
+  },
+  {
+    title: "Identification of Therapeutic Targets",
+    image: imgTherapeutic,
+    alt: "Identification of therapeutic targets",
+    description:
+      "All of our lab's work is towards the goal of understanding complex human diseases so we can ultimately prevent and treat them. We identify genes, cis-regulatory elements (CREs), proteins, and metabolites that change in individuals with diabetes and other diseases or are related to genetic and environmental risk of developing these diseases. All of these represent potential targets that could be modulated to prevent or treat disease.",
+  },
+];
 ---
 
 <Layout>
@@ -33,82 +69,30 @@ const recentPosts = sortedPosts.filter(({ data }) => !("featured" in data && dat
     <!-- ═══════════════════ HERO ═══════════════════ -->
     <section
       id="hero"
-      class="hero-section relative pt-10 pb-14 sm:pt-14 sm:pb-20"
+      class="hero-section relative overflow-hidden pt-10 pb-14 sm:pt-14 sm:pb-20"
     >
+      <CellNetwork class="absolute inset-0 z-0 opacity-60 pointer-events-none" />
+
       <div class="relative z-10">
-        <!-- Terminal prompt badge -->
-        <div
-          class="mb-3 inline-flex items-center gap-2 rounded-full border border-border/40 bg-muted/20 px-3.5 py-1.5 font-firacode text-xs sm:text-sm"
-        >
-          <span class="relative flex h-2 w-2">
-            <span
-              class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60"
-            ></span>
-            <span class="relative inline-flex h-2 w-2 rounded-full bg-accent"
-            ></span>
-          </span>
-            <span class="text-accent">{SITE.heroTerminalPrompt.prefix}</span>
-            {SITE.heroTerminalPrompt.path}
-            <span class="opacity-40">{SITE.heroTerminalPrompt.suffix}</span>
-        </div>
+        <TerminalBadge />
 
         <!-- Title -->
         <h1
           class="hero-title mb-3 text-5xl leading-[1.1] font-bold tracking-tight sm:text-6xl lg:text-7xl"
         >
-          {SITE.title}
-          <a
-            target="_blank"
-            href="/rss.xml"
-            class="ml-1 inline-block align-middle"
-            aria-label="RSS Feed"
-            title="RSS Feed"
-          >
-            <IconRss
-              width={22}
-              height={22}
-              class="stroke-accent stroke-3 opacity-40 transition-opacity duration-300 hover:opacity-100"
-            />
-          </a>
+          <span id="typed-title" aria-label={SITE.title}></span><span id="typed-cursor" class="typed-cursor">▎</span>
         </h1>
-
-        {
-          SITE.introAudio.enabled && (
-            <div class="mt-3">
-              <IntroAudio
-                src={SITE.introAudio.src}
-                label={SITE.introAudio.label}
-                duration={SITE.introAudio.duration}
-                isStream={SITE.introAudio.isStream}
-              />
-            </div>
-          )
-        }
 
         <!-- Description -->
         <p
-          class="mt-7 max-w-xl text-base leading-relaxed opacity-75 sm:text-lg"
+          class="mt-7 max-w-2xl text-base leading-relaxed opacity-75 sm:text-lg"
         >
-          A space where curiosity turns into code. Exploring
-          web development, software architecture, and everything that makes the
-          tech world go round.
+          The Gaulton lab is a biomedical research group in the Department of Pediatrics and the <a href="https://medschool.ucsd.edu/research/pediatric-diabetes/Pages/default.aspx" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">UCSD Pediatric Diabetes Research Center</a> at the University of California, San Diego School of Medicine in La Jolla, CA. Our research interests include mapping gene regulatory programs involved in type 1 diabetes (T1D) and other complex diseases, modulating the activity of gene regulatory elements as therapies to prevent or treat T1D, and identifying novel biomarkers and improving risk prediction of T1D.
         </p>
         <div class="mt-8 flex flex-col sm:flex-row sm:items-center gap-4">
-          <p class="text-sm opacity-50 flex-shrink-0">
-            Written by
-            <LinkButton
-              class="font-medium underline decoration-dashed underline-offset-4 hover:text-accent"
-              href={SITE.profile}
-              target="_blank"
-            >
-              {SITE.author}
-            </LinkButton>
-          </p>
-
           {
-            // only display if at least one social link is enabled
             SOCIALS.length > 0 && (
-              <div class="sm:border-l border-border/40 sm:pl-4">
+              <div>
                 <Socials />
               </div>
             )
@@ -117,79 +101,46 @@ const recentPosts = sortedPosts.filter(({ data }) => !("featured" in data && dat
       </div>
     </section>
 
-    <!-- ═══════════════════ FEATURED ═══════════════════ -->
-    {
-      featuredPosts.length > 0 && (
-        <section id="featured" class="pb-6">
-          <div class="mb-6 flex items-center gap-3">
-            <h2 class="flex items-center gap-2 text-sm font-bold tracking-widest text-accent uppercase">
-              <svg
-                class="size-4"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                aria-hidden="true"
-              >
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
-              Featured
-            </h2>
-            <div class="h-px flex-1 bg-border/20" />
-          </div>
+    <!-- ═══════════════════ RESEARCH AREAS ═══════════════════ -->
+    <section id="research" class="pb-12">
+      <div class="mb-8 flex items-center gap-3">
+        <h2 class="text-sm font-bold tracking-widest uppercase">Research Areas</h2>
+        <div class="h-px flex-1 bg-border/20" />
+      </div>
 
-          <ul class="grid gap-4 sm:grid-cols-2 [&>li]:my-0">
-            {featuredPosts.map((data, index) => (
-              <Card variant="h3" featured={true} {...data} loading={index < 2 ? "eager" : "lazy"} fetchpriority={index < 2 ? "high" : "auto"} />
-            ))}
-          </ul>
-        </section>
-      )
-    }
-
-    <!-- ═══════════════════ RECENT POSTS ═══════════════════ -->
-    {
-      recentPosts.length > 0 && (
-        <section id="recent-posts" class="pt-6 pb-6">
-          <div class="mb-6 flex items-center gap-3">
-            <h2 class="text-sm font-bold tracking-widest uppercase">
-              Recent
-            </h2>
-            <div class="h-px flex-1 bg-border/20" />
-            <span class="font-firacode text-xs text-accent/40 select-none">
-              [{recentPosts.slice(0, SITE.postPerIndex).length}/
-              {recentPosts.length}]
-            </span>
-          </div>
-          <ul class:list={[
-            SITE.indexPostsGrid && "grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
-          ]}>
-            {recentPosts.map(
-              (data, index) =>
-                index < SITE.postPerIndex && (
-                  <Card
-                    variant="h3"
-                    {...data}
-                    loading={index < 2 ? "eager" : "lazy"}
-                    fetchpriority={index < 2 ? "high" : "auto"}
-                  />
-                )
-            )}
-          </ul>
-
-          <!-- ═══════════════════ CTA ═══════════════════ -->
-          <div class="mt-8 mb-4 flex justify-center w-full">
-            <LinkButton
-              href="/posts/"
-              class="group inline-flex items-center w-full sm:w-auto justify-center gap-2 rounded-xl border border-accent/20 bg-accent/10 px-8 py-4 text-base font-bold text-accent transition-all duration-300 hover:border-accent hover:bg-accent/20 hover:shadow-xl hover:shadow-accent/20 hover:-translate-y-0.5"
-            >
-              Explore all posts
-              <IconArrowRight
-                class="inline-block transition-transform duration-300 group-hover:translate-x-1 rtl:-rotate-180"
-              />
-            </LinkButton>
-          </div>
-        </section>
-      )
-    }
+      <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {researchAreas.map((area, index) => (
+          <li
+            class:list={[
+              "research-card group/card relative flex flex-col rounded-2xl",
+              "border border-border/25 bg-muted/10 backdrop-blur-sm overflow-hidden",
+              "transition-[border-color,background-color,box-shadow,transform] duration-300 ease-out",
+              "motion-reduce:transform-none motion-reduce:transition-none",
+              "hover:-translate-y-0.5 hover:border-accent/40 hover:bg-accent/5",
+              "hover:shadow-lg hover:shadow-accent/10",
+            ]}
+          >
+            <div class="research-glow pointer-events-none absolute inset-0 z-0 rounded-2xl opacity-0 transition-opacity duration-300 motion-reduce:transition-none group-hover/card:opacity-100" aria-hidden="true" />
+            <Image
+              src={area.image}
+              alt={area.alt}
+              class="research-img relative z-5 w-full object-cover"
+              widths={[400, 800]}
+              sizes="(max-width: 640px) 100vw, 50vw"
+              loading={index < 2 ? "eager" : "lazy"}
+            />
+            <div class="relative z-5 flex flex-1 flex-col p-5">
+              <h3 class="mb-2 text-lg font-semibold text-foreground transition-colors duration-200 group-hover/card:text-accent">
+                {area.title}
+              </h3>
+              <p class="text-sm leading-relaxed text-foreground/65">
+                {area.description}
+              </p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
   </main>
   <Footer />
 </Layout>
@@ -199,18 +150,28 @@ const recentPosts = sortedPosts.filter(({ data }) => !("featured" in data && dat
   .hero-title {
     background: linear-gradient(
       135deg,
-      var(--accent) 0%,
-      color-mix(in oklab, var(--accent) 50%, var(--foreground)) 20%,
-      var(--foreground) 35%,
+      #7b3fa0 0%,
+      #a0567e 25%,
+      #c4789a 40%,
+      var(--foreground) 55%,
       var(--foreground) 65%,
-      color-mix(in oklab, var(--accent) 50%, var(--foreground)) 80%,
-      var(--accent) 100%
+      #c4789a 75%,
+      #d4845a 100%
     );
     background-size: 250% auto;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: shimmer 6s ease-in-out infinite;
+  }
+
+  .typed-cursor {
+    -webkit-text-fill-color: var(--foreground);
+    animation: blink 0.7s step-end infinite;
+  }
+
+  .typed-cursor.done {
+    animation: blink-fade 4.5s step-end forwards;
   }
 
   @keyframes shimmer {
@@ -220,6 +181,51 @@ const recentPosts = sortedPosts.filter(({ data }) => !("featured" in data && dat
     }
     50% {
       background-position: 100% center;
+    }
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  @keyframes blink-fade {
+    0% { opacity: 1; }
+    12.5% { opacity: 0; }
+    25% { opacity: 1; }
+    37.5% { opacity: 0; }
+    50% { opacity: 1; }
+    62.5% { opacity: 0; }
+    75% { opacity: 1; }
+    87.5% { opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  .research-card {
+    contain: paint;
+  }
+
+  .research-img {
+    flex-shrink: 0;
+    max-height: 180px;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .research-glow {
+    background: radial-gradient(
+      500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      color-mix(in oklab, var(--accent) 8%, transparent) 0%,
+      color-mix(in oklab, var(--accent) 4%, transparent) 30%,
+      color-mix(in oklab, var(--accent) 0.8%, transparent) 60%,
+      transparent 80%
+    );
+    will-change: opacity;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .research-glow {
+      background: none;
     }
   }
 </style>
@@ -232,8 +238,33 @@ const recentPosts = sortedPosts.filter(({ data }) => !("featured" in data && dat
       sessionStorage.setItem("backUrl", "/");
     }
 
+    // ── Typewriter effect ──
+    const typedEl = document.getElementById("typed-title");
+    const cursorEl = document.getElementById("typed-cursor");
+    if (typedEl && cursorEl) {
+      const text = "The Gaulton Lab";
+      typedEl.textContent = "";
+      cursorEl.classList.remove("done");
+      cursorEl.style.opacity = "";
+      let i = 0;
+      const type = () => {
+        if (i < text.length) {
+          typedEl.textContent += text[i];
+          i++;
+          const jitter = 80 + Math.floor(Math.random() * 60);
+          setTimeout(type, jitter);
+        } else {
+          cursorEl.classList.add("done");
+          cursorEl.addEventListener("animationend", () => {
+            cursorEl.style.opacity = "0";
+          }, { once: true });
+        }
+      };
+      setTimeout(type, 400);
+    }
+
     // ── Card glow follow cursor ──
-    document.querySelectorAll<HTMLElement>(".card-glow").forEach(card => {
+    document.querySelectorAll<HTMLElement>(".research-card").forEach(card => {
       card.addEventListener("mousemove", (e: MouseEvent) => {
         const rect = card.getBoundingClientRect();
         card.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);

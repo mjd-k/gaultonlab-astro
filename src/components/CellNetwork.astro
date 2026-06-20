@@ -1,0 +1,305 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+// Seeded RNG matching the logo design
+const seedVal = 20260620;
+let s = seedVal;
+function rng() {
+  s = (s * 1664525 + 1013904223) >>> 0;
+  return s / 4294967296;
+}
+function gauss(sd: number) {
+  return (rng() + rng() + rng() - 1.5) * sd;
+}
+
+const clusters = [
+  { ci: 0, cx: 80,  cy: 280, h: 270, s: 50, l: 40, n: 14 },
+  { ci: 1, cx: 200, cy: 275, h: 290, s: 45, l: 50, n: 14 },
+  { ci: 2, cx: 330, cy: 285, h: 320, s: 50, l: 55, n: 14 },
+  { ci: 3, cx: 450, cy: 278, h: 350, s: 65, l: 62, n: 14 },
+  { ci: 4, cx: 560, cy: 282, h: 15,  s: 75, l: 65, n: 14 },
+];
+
+interface CloudNode {
+  ci: number;
+  cx: number;
+  cy: number;
+  rad: number;
+  fill: string;
+}
+
+const cloud: CloudNode[] = [];
+for (const c of clusters) {
+  for (let i = 0; i < c.n; i++) {
+    cloud.push({
+      ci: c.ci,
+      cx: +(c.cx + gauss(20)).toFixed(1),
+      cy: +(c.cy + gauss(18)).toFixed(1),
+      rad: +(2.8 + rng() * 2.0).toFixed(1),
+      fill: `hsl(${(c.h + (rng() * 2 - 1) * 11).toFixed(0)} ${(c.s + (rng() * 2 - 1) * 7).toFixed(0)}% ${(c.l + (rng() * 2 - 1) * 11).toFixed(0)}%)`,
+    });
+  }
+}
+
+function knnEdges(pts: CloudNode[], k: number) {
+  const seen = new Set<string>();
+  const out: { x1: number; y1: number; x2: number; y2: number }[] = [];
+  pts.forEach((p, i) => {
+    pts
+      .map((q, j) => ({ j, d: Math.hypot(q.cx - p.cx, q.cy - p.cy) }))
+      .filter(o => o.j !== i)
+      .sort((a, b) => a.d - b.d)
+      .slice(0, k)
+      .forEach(({ j }) => {
+        const key = i < j ? `${i}_${j}` : `${j}_${i}`;
+        if (!seen.has(key)) {
+          seen.add(key);
+          out.push({ x1: pts[i].cx, y1: pts[i].cy, x2: pts[j].cx, y2: pts[j].cy });
+        }
+      });
+  });
+  return out;
+}
+
+const edges: { x1: number; y1: number; x2: number; y2: number }[] = [];
+for (const g of [0, 1, 2, 3, 4]) {
+  for (const e of knnEdges(cloud.filter(p => p.ci === g), 4)) {
+    edges.push(e);
+  }
+}
+
+// Serialize data for client-side animation
+const cloudJSON = JSON.stringify(cloud);
+const edgesJSON = JSON.stringify(edges);
+---
+
+<div class:list={["cell-network-wrap", className]} aria-hidden="true">
+  <div class="cell-network-inner">
+    <svg data-cell-svg viewBox="0 0 620 300" preserveAspectRatio="xMidYMid meet" class="cell-network-svg">
+      <g data-edges-group></g>
+      <g data-nodes-group></g>
+    </svg>
+  </div>
+</div>
+
+<script data-cloud={cloudJSON} data-edges={edgesJSON} is:inline>
+  // Immediately stash the data before Astro moves the script
+  (function() {
+    const scriptEl = document.currentScript;
+    if (scriptEl) {
+      window.__cellNetworkData = {
+        cloud: JSON.parse(scriptEl.dataset.cloud),
+        edges: JSON.parse(scriptEl.dataset.edges),
+      };
+    }
+  })();
+</script>
+
+<style>
+  .cell-network-wrap {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .cell-network-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+.cell-network-svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+</style>
+
+<script>
+  interface NodeData {
+    ci: number;
+    cx: number;
+    cy: number;
+    rad: number;
+    fill: string;
+  }
+
+  interface EdgeData {
+    x1: number;
+    y1: number;
+    x2: number;
+    y2: number;
+  }
+
+  declare global {
+    interface Window {
+      __cellNetworkData?: { cloud: NodeData[]; edges: EdgeData[] };
+    }
+  }
+
+  function setup() {
+    const svg = document.querySelector<SVGSVGElement>("[data-cell-svg]");
+    if (!svg) return;
+
+    const data = window.__cellNetworkData;
+    if (!data) return;
+    const { cloud, edges } = data;
+
+    const nodesGroup = svg.querySelector("[data-nodes-group]")!;
+    const edgesGroup = svg.querySelector("[data-edges-group]")!;
+
+    const isDark = () =>
+      document.documentElement.getAttribute("data-theme") === "dark";
+
+    // Scatter: each node starts at a random position spread across the SVG
+    let localSeed = 42;
+    function localRng() {
+      localSeed = (localSeed * 1664525 + 1013904223) >>> 0;
+      return localSeed / 4294967296;
+    }
+
+    interface AnimNode {
+      target: NodeData;
+      x: number;
+      y: number;
+      r: number;
+      el: SVGCircleElement;
+    }
+
+    const animNodes: AnimNode[] = cloud.map(d => {
+      const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      const startX = 10 + localRng() * 600;
+      const startY = 10 + localRng() * 220;
+      circle.setAttribute("cx", String(startX));
+      circle.setAttribute("cy", String(startY));
+      circle.setAttribute("r", String(d.rad));
+      circle.setAttribute("fill", d.fill);
+      nodesGroup.appendChild(circle);
+      return { target: d, x: startX, y: startY, r: d.rad, el: circle };
+    });
+
+    interface AnimEdge {
+      srcIdx: number;
+      tgtIdx: number;
+      el: SVGLineElement;
+    }
+
+    const nodesByPos = new Map<string, number>();
+    cloud.forEach((d, i) => nodesByPos.set(`${d.cx},${d.cy}`, i));
+
+    const animEdges: AnimEdge[] = edges.map(e => {
+      const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      line.setAttribute("stroke-width", "1.3");
+      line.setAttribute("stroke-linecap", "round");
+      line.style.opacity = "0";
+      edgesGroup.appendChild(line);
+
+      const srcIdx = nodesByPos.get(`${e.x1},${e.y1}`) ?? 0;
+      const tgtIdx = nodesByPos.get(`${e.x2},${e.y2}`) ?? 0;
+      return { srcIdx, tgtIdx, el: line };
+    });
+
+    function updateEdgeColors() {
+      const dark = isDark();
+      const stroke = dark ? "rgba(200, 160, 180, 0.55)" : "rgba(70, 28, 52, 0.65)";
+      for (const ae of animEdges) {
+        ae.el.setAttribute("stroke", stroke);
+      }
+    }
+    updateEdgeColors();
+
+    const observer = new MutationObserver(updateEdgeColors);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+
+    // Animation: scatter → cluster → edges → hold (no loop)
+    const DURATION = 5000;
+    const CLUSTER_START = 0.05;
+    const CLUSTER_END = 0.50;
+    const EDGE_START = 0.45;
+    const EDGE_END = 0.70;
+
+    const clamp = (x: number) => Math.max(0, Math.min(1, x));
+    const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
+
+    let start: number | null = null;
+    let raf: number;
+    let done = false;
+
+    function frame(ts: number) {
+      if (start == null) start = ts;
+      const elapsed = ts - start;
+      const t = Math.min(elapsed / DURATION, 1);
+
+      // Node clustering
+      for (let i = 0; i < animNodes.length; i++) {
+        const an = animNodes[i];
+        const stagger = CLUSTER_START + (i / animNodes.length) * 0.1;
+        const p = clamp((t - stagger) / (CLUSTER_END - CLUSTER_START));
+        const ep = easeOut(p);
+
+        const curX = an.x + (an.target.cx - an.x) * ep;
+        const curY = an.y + (an.target.cy - an.y) * ep;
+
+        an.el.setAttribute("cx", curX.toFixed(1));
+        an.el.setAttribute("cy", curY.toFixed(1));
+        an.el.style.opacity = "1";
+      }
+
+      // Edge drawing
+      for (let i = 0; i < animEdges.length; i++) {
+        const ae = animEdges[i];
+        const stagger = EDGE_START + (i / animEdges.length) * (EDGE_END - EDGE_START);
+        const p = clamp((t - stagger) / 0.12);
+
+        const src = animNodes[ae.srcIdx];
+        const tgt = animNodes[ae.tgtIdx];
+        const sx = parseFloat(src.el.getAttribute("cx")!);
+        const sy = parseFloat(src.el.getAttribute("cy")!);
+        const tx = parseFloat(tgt.el.getAttribute("cx")!);
+        const ty = parseFloat(tgt.el.getAttribute("cy")!);
+
+        ae.el.setAttribute("x1", sx.toFixed(1));
+        ae.el.setAttribute("y1", sy.toFixed(1));
+        ae.el.setAttribute("x2", tx.toFixed(1));
+        ae.el.setAttribute("y2", ty.toFixed(1));
+
+        if (p > 0) {
+          const len = Math.hypot(tx - sx, ty - sy);
+          ae.el.style.strokeDasharray = String(len);
+          ae.el.style.strokeDashoffset = (len * (1 - p)).toFixed(2);
+          ae.el.style.opacity = "0.5";
+        } else {
+          ae.el.style.opacity = "0";
+        }
+      }
+
+      if (t < 1) {
+        raf = requestAnimationFrame(frame);
+      } else {
+        done = true;
+      }
+    }
+
+    raf = requestAnimationFrame(frame);
+
+    document.addEventListener(
+      "astro:before-swap",
+      () => {
+        if (!done) cancelAnimationFrame(raf);
+        observer.disconnect();
+      },
+      { once: true }
+    );
+  }
+
+  document.addEventListener("astro:page-load", setup);
+</script>

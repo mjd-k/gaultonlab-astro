@@ -29,28 +29,44 @@ const isActive = (path: string) => {
       <div class="mobile-menu-inner">
         <nav class="mobile-nav-links">
           <a
-            href="/posts"
-            class:list={["mobile-nav-link", { active: isActive("/posts") }]}
+            href="/people"
+            class:list={["mobile-nav-link", { active: isActive("/people") }]}
             style="--i:0"
           >
             <span class="mobile-nav-indicator"></span>
-            <span>Posts</span>
+            <span>People</span>
           </a>
           <a
-            href="/tags"
-            class:list={["mobile-nav-link", { active: isActive("/tags") }]}
+            href="/resources"
+            class:list={["mobile-nav-link", { active: isActive("/resources") }]}
             style="--i:1"
           >
             <span class="mobile-nav-indicator"></span>
-            <span>Tags</span>
+            <span>Resources</span>
           </a>
           <a
-            href="/about"
-            class:list={["mobile-nav-link", { active: isActive("/about") }]}
+            href="/publications"
+            class:list={["mobile-nav-link", { active: isActive("/publications") }]}
             style="--i:2"
           >
             <span class="mobile-nav-indicator"></span>
-            <span>About</span>
+            <span>Publications</span>
+          </a>
+          <a
+            href="/photos"
+            class:list={["mobile-nav-link", { active: isActive("/photos") }]}
+            style="--i:3"
+          >
+            <span class="mobile-nav-indicator"></span>
+            <span>Photos</span>
+          </a>
+          <a
+            href="/contact"
+            class:list={["mobile-nav-link", { active: isActive("/contact") }]}
+            style="--i:4"
+          >
+            <span class="mobile-nav-indicator"></span>
+            <span>Contact</span>
           </a>
           {
             SITE.showArchives && (
@@ -60,7 +76,7 @@ const isActive = (path: string) => {
                   "mobile-nav-link",
                   { active: isActive("/archives") },
                 ]}
-                style="--i:3"
+                style="--i:5"
               >
                 <span class="mobile-nav-indicator" />
                 <span>Archives</span>
@@ -75,7 +91,7 @@ const isActive = (path: string) => {
                   "mobile-nav-link",
                   { active: isActive("/galleries") },
                 ]}
-                style="--i:4"
+                style="--i:6"
               >
                 <span class="mobile-nav-indicator" />
                 <span>Galleries</span>
@@ -89,15 +105,6 @@ const isActive = (path: string) => {
 
         <!-- Bottom action row -->
         <div class="mobile-menu-actions">
-          <button
-            data-search-trigger
-            class="mobile-action-btn flex-1 justify-center"
-            title="Search (⌘K)"
-            aria-label="Open search"
-          >
-            <IconSearch class="size-4" />
-            <span>Search</span>
-          </button>
           {
             SITE.lightAndDarkMode && (
               <button
