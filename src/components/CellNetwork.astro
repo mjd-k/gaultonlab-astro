@@ -79,7 +79,7 @@ const edgesJSON = JSON.stringify(edges);
 
 <div class:list={["cell-network-wrap", className]} aria-hidden="true">
   <div class="cell-network-inner">
-    <svg data-cell-svg viewBox="0 0 620 300" preserveAspectRatio="xMidYMid meet" class="cell-network-svg">
+    <svg data-cell-svg viewBox="0 0 620 300" preserveAspectRatio="xMidYMax meet" class="cell-network-svg">
       <g data-edges-group></g>
       <g data-nodes-group></g>
     </svg>
@@ -103,7 +103,7 @@ const edgesJSON = JSON.stringify(edges);
   .cell-network-wrap {
     width: 100%;
     height: 100%;
-    overflow: visible;
+    overflow: hidden;
   }
 
   .cell-network-inner {
@@ -114,10 +114,9 @@ const edgesJSON = JSON.stringify(edges);
     justify-content: center;
   }
 
-.cell-network-svg {
+  .cell-network-svg {
     width: 100%;
     height: 100%;
-    overflow: visible;
   }
 </style>
 
