@@ -15,6 +15,7 @@ import { SITE } from "./src/config";
 // https://astro.build/config
 export default defineConfig({
   site: SITE.website,
+  base: process.env.BASE_URL || "/",
   prefetch: {
     prefetchAll: true,
     defaultStrategy: "hover",
