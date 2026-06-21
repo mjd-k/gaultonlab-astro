@@ -1,0 +1,101 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import TerminalBadge from "@/components/TerminalBadge.astro";
+import { SITE } from "@/config";
+
+const tools = [
+  { label: "Single Cell Browser", icon: "dna", url: "http://tools.cmdga.org:3838/multiome-browser" },
+  { label: "Differential Expression Browser", icon: "chart", url: "http://tools.cmdga.org:3838/multiome-expression-browser" },
+  { label: "Differential Accessible cRE Browser", icon: "map", url: "http://tools.cmdga.org:3838/multiome-cRE" },
+  { label: "Motif Browser", icon: "shapes", url: "http://tools.cmdga.org:3838/multiome-motifs" },
+  { label: "User Manual", icon: "book", url: "/pages/tools-guide" },
+  { label: "Links Browser", icon: "link", url: "https://epigenomegateway.wustl.edu/browser/" },
+  { label: "Access ATAC and cell type link files", icon: "download", url: "https://www.dropbox.com/scl/fo/9ncblst9u6ixjvi189jnw/AKsUBHKV3JbftILoDVtOJRY?rlkey=ig7goqbz9zc8f0bo9iy3179lt&st=mjzl9495&dl=0" },
+  { label: "Analysis Pipelines GitHub", icon: "code", url: "https://github.com/Gaulton-Lab/non-diabetic-islet-multiomics" },
+  { label: "View CMDGA Data", icon: "database", url: "https://cmdga.org/publications/db02d5cd-2767-4cd5-873e-6adbd0ea553a/" },
+  { label: "Get Help on GitHub", icon: "help", url: "https://github.com/Gaulton-Lab/non-diabetic-islet-multiomics/issues" },
+];
+---
+
+<Layout title={`Multiome Islet Genomics | ${SITE.title}`} description="Single cell multiome profiling of pancreatic islets — tools and datasets for islet gene regulation research.">
+  <Header />
+  <main id="main-content" class="app-layout pb-16">
+    <TerminalBadge path="resources/multiome-isletgenomics" />
+    <a href="/resources" class="mt-1 mb-6 flex items-center gap-1 text-sm text-foreground/50 transition-colors hover:text-accent">
+      <svg class="size-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" /></svg>
+      Back to Resources
+    </a>
+
+    <div class="mb-10 rounded-2xl border border-border/25 bg-muted/10 p-6 text-center sm:p-8">
+      <h1 class="text-xl font-semibold sm:text-2xl">Single cell multiome profiling of pancreatic islets</h1>
+    </div>
+
+    <section>
+      <div class="mb-6 flex items-center gap-3">
+        <h2 class="text-sm font-bold tracking-widest uppercase">Tools & Data</h2>
+        <div class="h-px flex-1 bg-border/20" />
+      </div>
+
+      <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {tools.map(tool => (
+          <li class="tool-card group/card relative rounded-2xl border border-border/25 bg-muted/10 backdrop-blur-sm transition-[border-color,background-color,box-shadow,transform] duration-300 ease-out motion-reduce:transform-none motion-reduce:transition-none hover:-translate-y-0.5 hover:border-accent/40 hover:bg-accent/5 hover:shadow-lg hover:shadow-accent/10">
+            <div class="tool-glow pointer-events-none absolute inset-0 z-0 rounded-2xl opacity-0 transition-opacity duration-300 motion-reduce:transition-none group-hover/card:opacity-100" aria-hidden="true" />
+            <a href={tool.url} target={tool.url.startsWith("/") ? "_self" : "_blank"} rel={tool.url.startsWith("/") ? undefined : "noopener noreferrer"} class="relative z-5 flex flex-col items-center p-5 text-center">
+              <div class="mb-3 flex size-12 items-center justify-center rounded-xl border border-accent/20 bg-accent/5">
+                <svg class="size-6 text-accent/60" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                  {tool.icon === "dna" && <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />}
+                  {tool.icon === "chart" && <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />}
+                  {tool.icon === "map" && <path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" />}
+                  {tool.icon === "shapes" && <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />}
+                  {tool.icon === "book" && <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />}
+                  {tool.icon === "link" && <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />}
+                  {tool.icon === "download" && <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />}
+                  {tool.icon === "code" && <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />}
+                  {tool.icon === "database" && <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />}
+                  {tool.icon === "help" && <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />}
+                </svg>
+              </div>
+              <span class="text-sm font-semibold text-foreground transition-colors duration-200 group-hover/card:text-accent">{tool.label}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="mt-12 rounded-2xl border border-border/25 bg-muted/10 p-5 sm:p-6">
+      <h2 class="mb-3 text-sm font-bold tracking-widest uppercase">Citation</h2>
+      <p class="text-sm leading-relaxed text-foreground/70">
+        Hannah M Mummey, Weston Elison, Katha Korgaonkar, Ruth M Elgamal, Parul Kudtarkar, Emily Griffin, Paola Benaglio, Michael Miller, Alokkumar Jha, Jocelyn Manning Fox, Mark I McCarthy, Sebastian Preissl, Anna L Gloyn, Patrick MacDonald, Kyle J Gaulton.
+        Single cell multiome profiling of pancreatic islets reveals physiological changes in cell type-specific regulation associated with diabetes risk. (2024)
+      </p>
+      <a href="https://doi.org/10.1101/2024.08.03.606460" target="_blank" rel="noopener noreferrer" class="mt-2 inline-flex items-center gap-1 text-sm font-medium text-accent hover:underline">
+        bioRxiv
+        <svg class="size-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg>
+      </a>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .tool-card { contain: paint; }
+  .tool-glow {
+    background: radial-gradient(350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), color-mix(in oklab, var(--accent) 8%, transparent) 0%, color-mix(in oklab, var(--accent) 4%, transparent) 30%, color-mix(in oklab, var(--accent) 0.8%, transparent) 60%, transparent 80%);
+    will-change: opacity;
+  }
+  @media (prefers-reduced-motion: reduce) { .tool-glow { background: none; } }
+</style>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    document.querySelectorAll<HTMLElement>(".tool-card").forEach(card => {
+      card.addEventListener("mousemove", (e: MouseEvent) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+        card.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+      });
+    });
+  });
+</script>

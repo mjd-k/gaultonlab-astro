@@ -1,0 +1,96 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import TerminalBadge from "@/components/TerminalBadge.astro";
+import { SITE } from "@/config";
+---
+
+<Layout title={`Multiome Tools Guide | ${SITE.title}`} description="User guide for multiome islet genomics browsers and tools.">
+  <Header />
+  <main id="main-content" class="app-layout pb-16">
+    <TerminalBadge path="resources/tools-guide" />
+    <a href="/resources" class="mt-1 mb-6 flex items-center gap-1 text-sm text-foreground/50 transition-colors hover:text-accent">
+      <svg class="size-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" /></svg>
+      Back to Resources
+    </a>
+    <h1 class="text-2xl font-semibold sm:text-3xl mb-8">Multiome Islet Genomics User Guide</h1>
+
+    <section class="mb-10">
+      <div class="mb-4 flex items-center gap-3">
+        <h2 class="text-sm font-bold tracking-widest uppercase">Single Cell Browser</h2>
+        <div class="h-px flex-1 bg-border/20" />
+      </div>
+      <div class="rounded-2xl border border-border/25 bg-muted/10 p-5 sm:p-6">
+        <p class="mb-4 text-sm leading-relaxed text-foreground/70">
+          Use this <strong>ShinyCell-based browser</strong> to visualize gene expression and donor metadata for all <strong>174,819 single nuclei</strong>.
+        </p>
+        <h3 class="mb-2 text-sm font-semibold text-foreground/80">Key Features</h3>
+        <ul class="list-inside list-disc space-y-1 text-sm text-foreground/70">
+          <li><strong>Tabs:</strong> CellInfo vs GeneExpr, CellInfo vs CellInfo, GeneExpr vs GeneExpr</li>
+          <li>Visualize per-barcode metadata and normalized gene expression projected onto the UMAP</li>
+          <li><strong>Gene Coexpression:</strong> Overlap expression for two genes</li>
+          <li><strong>Summarized Metadata and Gene Expression:</strong> Customize visualizations with violin plots, box plots, and proportion plots</li>
+          <li><strong>Bubbleplot / Heatmap:</strong> Visualize up to 50 genes across groups of cells</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="mb-10">
+      <div class="mb-4 flex items-center gap-3">
+        <h2 class="text-sm font-bold tracking-widest uppercase">Differential Expression & cRE Browsers</h2>
+        <div class="h-px flex-1 bg-border/20" />
+      </div>
+      <div class="rounded-2xl border border-border/25 bg-muted/10 p-5 sm:p-6">
+        <p class="mb-4 text-sm leading-relaxed text-foreground/70">
+          Explore differential gene expression and differential accessible cREs by phenotype associations across major cell types.
+        </p>
+        <h3 class="mb-2 text-sm font-semibold text-foreground/80">Key Features</h3>
+        <ul class="list-inside list-disc space-y-1 text-sm text-foreground/70">
+          <li><strong>Volcano Plot:</strong> Displays meta-analysis effects and FDR-corrected significance</li>
+          <li><strong>Interactive Table:</strong> Visualize and download association test data</li>
+          <li><strong>Download Results:</strong> Only significant features are downloaded if specified</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="mb-10">
+      <div class="mb-4 flex items-center gap-3">
+        <h2 class="text-sm font-bold tracking-widest uppercase">Motif Browser</h2>
+        <div class="h-px flex-1 bg-border/20" />
+      </div>
+      <div class="rounded-2xl border border-border/25 bg-muted/10 p-5 sm:p-6">
+        <p class="text-sm leading-relaxed text-foreground/70">
+          Use this browser to display differentially accessible TF motif results for phenotype associations by cell type.
+        </p>
+      </div>
+    </section>
+
+    <section class="mb-10">
+      <div class="mb-4 flex items-center gap-3">
+        <h2 class="text-sm font-bold tracking-widest uppercase">Links Browser</h2>
+        <div class="h-px flex-1 bg-border/20" />
+      </div>
+      <div class="rounded-2xl border border-border/25 bg-muted/10 p-5 sm:p-6">
+        <p class="mb-4 text-sm leading-relaxed text-foreground/70">
+          Developed by the Wang lab at WashU, this browser can display ATAC signals, cRE-gene links, and more. See their
+          <a href="https://epigenomegateway.readthedocs.io/en/latest/usage.html" target="_blank" rel="noopener noreferrer" class="font-medium text-accent hover:underline">documentation</a>
+          for additional features.
+        </p>
+        <h3 class="mb-2 text-sm font-semibold text-foreground/80">Session Files</h3>
+        <p class="text-sm leading-relaxed text-foreground/70">
+          We provide <code class="rounded bg-muted/30 px-1.5 py-0.5 font-firacode text-xs">.json</code> session files for two types of browser sessions:
+        </p>
+        <ol class="mt-2 list-inside list-decimal space-y-1 text-sm text-foreground/70">
+          <li>ATAC signal from all cell types</li>
+          <li>cRE-gene links for all six major cell types</li>
+        </ol>
+        <p class="mt-2 text-sm text-foreground/70">
+          Download them via
+          <a href="https://www.dropbox.com/scl/fo/9ncblst9u6ixjvi189jnw/AKsUBHKV3JbftILoDVtOJRY?rlkey=ig7goqbz9zc8f0bo9iy3179lt&st=mjzl9495&dl=0" target="_blank" rel="noopener noreferrer" class="font-medium text-accent hover:underline">Dropbox</a>.
+        </p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

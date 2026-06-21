@@ -30,21 +30,21 @@ const resources = [
     name: "Islet Genomics",
     description:
       "Interactive tools and data relevant to our pancreatic islet studies.",
-    url: "https://www.gaultonlab.org/pages/Islet_expression_HPAP",
+    url: "/pages/Islet_expression_HPAP",
     logo: null,
   },
   {
     name: "T1D Pancreas Genomics",
     description:
       "Single-cell multiome and spatial profiling reveals pancreas cell type-specific gene regulatory programs driving type 1 diabetes progression.",
-    url: "http://t1d-pancreas.isletgenomics.org",
+    url: "/pages/T1D-pancreas-genomics",
     logo: null,
   },
   {
     name: "Multiome Islet Genomics",
     description:
       "Datasets, tools, and information for pancreatic islet gene regulation research.",
-    url: "http://multiome.isletgenomics.org",
+    url: "/pages/multiome-isletgenomics",
     logo: null,
   },
 ];
@@ -75,8 +75,8 @@ const pipelines = [
         <div class="h-px flex-1 bg-border/20" />
       </div>
 
-      <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {resources.map(resource => (
+      <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6">
+        {resources.map((resource, i) => (
           <li
             class:list={[
               "resource-card group/card relative rounded-2xl",
@@ -85,10 +85,11 @@ const pipelines = [
               "motion-reduce:transform-none motion-reduce:transition-none",
               "hover:-translate-y-0.5 hover:border-accent/40 hover:bg-accent/5",
               "hover:shadow-lg hover:shadow-accent/10",
+              i < 2 ? "lg:col-span-3" : "lg:col-span-2",
             ]}
           >
             <div class="resource-glow pointer-events-none absolute inset-0 z-0 rounded-2xl opacity-0 transition-opacity duration-300 motion-reduce:transition-none group-hover/card:opacity-100" aria-hidden="true" />
-            <a href={resource.url} target="_blank" rel="noopener noreferrer" class="relative z-5 flex flex-col p-5">
+            <a href={resource.url} target={resource.url.startsWith("/") ? "_self" : "_blank"} rel={resource.url.startsWith("/") ? undefined : "noopener noreferrer"} class="relative z-5 flex flex-col p-5">
               {resource.logo ? (
                 <div class="mb-4 flex justify-center">
                   {resource.logoLight ? (

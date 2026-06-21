@@ -1,0 +1,131 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import TerminalBadge from "@/components/TerminalBadge.astro";
+import { SITE } from "@/config";
+
+const resources = [
+  {
+    name: "Common Metabolic Disease Genome Atlas",
+    description: "Comprehensive epigenomic and functional genomic data from the AMP®-CMD consortium at UCSD.",
+    url: "https://cmdga.org",
+  },
+  {
+    name: "PanKBase",
+    description: "A critical component of the Human Islet Research Network (HIRN) sharing knowledge based on FAIR principles.",
+    url: "https://data.pankbase.org",
+  },
+  {
+    name: "Islet Genomics",
+    description: "Interactive tools and data relevant to our pancreatic islet studies.",
+    url: "https://www.isletgenomics.org",
+  },
+  {
+    name: "T1D Pancreas Genomics",
+    description: "Single-cell multiome and spatial profiling reveals pancreas cell type-specific gene regulatory programs driving type 1 diabetes progression.",
+    url: "http://t1d-pancreas.isletgenomics.org",
+  },
+  {
+    name: "Multiome Islet Genomics",
+    description: "Datasets, tools, and information for pancreatic islet gene regulation research.",
+    url: "http://multiome.isletgenomics.org",
+  },
+];
+
+const pipelines = [
+  { name: "GitHub Repositories", url: "https://github.com/Gaulton-Lab", icon: "github" },
+  { name: "Docker Containers", url: "https://hub.docker.com/r/kgaultonlab/", icon: "docker" },
+];
+---
+
+<Layout title={`Resources & Pipelines | ${SITE.title}`} description="Research resources, databases, and development pipelines from the Gaulton Lab.">
+  <Header />
+  <main id="main-content" class="app-layout pb-16">
+    <TerminalBadge path="resources1" />
+    <h1 class="text-2xl font-semibold sm:text-3xl mb-8">Resources & Pipelines</h1>
+
+    <section>
+      <div class="mb-6 flex items-center gap-3">
+        <h2 class="text-sm font-bold tracking-widest uppercase">Research Resources</h2>
+        <div class="h-px flex-1 bg-border/20" />
+      </div>
+
+      <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {resources.map(resource => (
+          <li class="tool-card group/card relative rounded-2xl border border-border/25 bg-muted/10 backdrop-blur-sm transition-[border-color,background-color,box-shadow,transform] duration-300 ease-out motion-reduce:transform-none motion-reduce:transition-none hover:-translate-y-0.5 hover:border-accent/40 hover:bg-accent/5 hover:shadow-lg hover:shadow-accent/10">
+            <div class="tool-glow pointer-events-none absolute inset-0 z-0 rounded-2xl opacity-0 transition-opacity duration-300 motion-reduce:transition-none group-hover/card:opacity-100" aria-hidden="true" />
+            <a href={resource.url} target="_blank" rel="noopener noreferrer" class="relative z-5 flex flex-col p-5">
+              <div class="mb-1 text-center text-lg font-semibold text-foreground transition-colors duration-200 group-hover/card:text-accent">
+                {resource.name}
+              </div>
+              <p class="mt-1 text-center text-sm leading-relaxed text-foreground/55">{resource.description}</p>
+              <span class="mt-3 inline-flex items-center justify-center gap-1 text-xs font-medium text-accent/70 transition-colors duration-200 group-hover/card:text-accent">
+                Visit resource
+                <svg class="size-3.5 transition-transform duration-200 group-hover/card:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                </svg>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="mt-16">
+      <div class="mb-6 flex items-center gap-3">
+        <h2 class="text-sm font-bold tracking-widest uppercase">Development Pipelines</h2>
+        <div class="h-px flex-1 bg-border/20" />
+      </div>
+
+      <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {pipelines.map(pipeline => (
+          <li class="tool-card group/card relative rounded-2xl border border-border/25 bg-muted/10 backdrop-blur-sm transition-[border-color,background-color,box-shadow,transform] duration-300 ease-out motion-reduce:transform-none motion-reduce:transition-none hover:-translate-y-0.5 hover:border-accent/40 hover:bg-accent/5 hover:shadow-lg hover:shadow-accent/10">
+            <div class="tool-glow pointer-events-none absolute inset-0 z-0 rounded-2xl opacity-0 transition-opacity duration-300 motion-reduce:transition-none group-hover/card:opacity-100" aria-hidden="true" />
+            <a href={pipeline.url} target="_blank" rel="noopener noreferrer" class="relative z-5 flex items-center gap-4 p-5">
+              <div class="flex size-12 shrink-0 items-center justify-center rounded-xl border border-accent/20 bg-accent/5">
+                {pipeline.icon === "github" ? (
+                  <svg class="size-6 text-accent/70" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                  </svg>
+                ) : (
+                  <svg class="size-6 text-accent/70" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M13.983 11.078h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.186.186 0 00-.185.186v1.887c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 00.186-.186V3.574a.186.186 0 00-.186-.185h-2.118a.186.186 0 00-.185.185v1.888c0 .102.082.186.185.186m0 2.716h2.118a.187.187 0 00.186-.186V6.29a.186.186 0 00-.186-.185h-2.118a.186.186 0 00-.185.185v1.887c0 .102.082.186.185.186m-2.93 0h2.12a.186.186 0 00.184-.186V6.29a.185.185 0 00-.185-.185H8.1a.186.186 0 00-.185.185v1.887c0 .102.083.186.185.186m-2.964 0h2.119a.186.186 0 00.185-.186V6.29a.186.186 0 00-.185-.185H5.136a.186.186 0 00-.186.185v1.887c0 .102.084.186.186.186m5.893 2.715h2.118a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.118a.186.186 0 00-.185.186v1.887c0 .102.082.185.185.185m-2.93 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.186v1.887c0 .102.083.185.185.185m-2.964 0h2.119a.186.186 0 00.185-.185V9.006a.186.186 0 00-.185-.186H5.136a.186.186 0 00-.186.186v1.887c0 .102.084.185.186.185m-2.92 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.186.186 0 00-.186.186v1.887c0 .102.084.185.186.185M23.763 9.89c-.065-.051-.672-.51-1.954-.51-.338.001-.676.03-1.01.087-.248-1.7-1.653-2.53-1.716-2.566l-.344-.199-.226.327c-.284.438-.49.922-.612 1.43-.23.97-.09 1.882.403 2.661-.595.332-1.55.413-1.744.42H.751a.751.751 0 00-.75.748 11.376 11.376 0 00.692 4.062c.545 1.428 1.355 2.48 2.41 3.124 1.18.723 3.1 1.137 5.275 1.137.983.003 1.963-.086 2.93-.266a12.248 12.248 0 003.823-1.389c.98-.567 1.86-1.288 2.61-2.136 1.252-1.418 1.998-2.997 2.553-4.4h.221c1.372 0 2.215-.549 2.68-1.009.309-.293.55-.65.707-1.046l.098-.288Z" />
+                  </svg>
+                )}
+              </div>
+              <div class="min-w-0 flex-1">
+                <div class="text-base font-semibold text-foreground transition-colors duration-200 group-hover/card:text-accent">{pipeline.name}</div>
+              </div>
+              <svg class="size-4 shrink-0 text-accent/40 transition-transform duration-200 group-hover/card:translate-x-0.5 group-hover/card:text-accent/70" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+              </svg>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .tool-card { contain: paint; }
+  .tool-glow {
+    background: radial-gradient(350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), color-mix(in oklab, var(--accent) 8%, transparent) 0%, color-mix(in oklab, var(--accent) 4%, transparent) 30%, color-mix(in oklab, var(--accent) 0.8%, transparent) 60%, transparent 80%);
+    will-change: opacity;
+  }
+  @media (prefers-reduced-motion: reduce) { .tool-glow { background: none; } }
+</style>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    document.querySelectorAll<HTMLElement>(".tool-card").forEach(card => {
+      card.addEventListener("mousemove", (e: MouseEvent) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+        card.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+      });
+    });
+  });
+</script>
