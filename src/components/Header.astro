@@ -11,6 +11,7 @@ import MobileMenu from "./MobileMenu.astro";
 import IntroAudioCompact from "./IntroAudioCompact.astro";
 import { SITE } from "@/config";
 
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const { pathname } = Astro.url;
 
 // Remove trailing slash from current pathname if exists
@@ -18,10 +19,11 @@ const currentPath =
   pathname.endsWith("/") && pathname !== "/" ? pathname.slice(0, -1) : pathname;
 
 const isActive = (path: string) => {
+  const fullPath = base + path;
   const currentPathArray = currentPath.split("/").filter(p => p.trim());
-  const pathArray = path.split("/").filter(p => p.trim());
+  const fullPathArray = fullPath.split("/").filter(p => p.trim());
 
-  return currentPath === path || currentPathArray[0] === pathArray[0];
+  return currentPath === fullPath || currentPathArray.at(-1) === fullPathArray.at(-1);
 };
 ---
 
@@ -47,7 +49,7 @@ const isActive = (path: string) => {
       >
         <!-- Logo -->
         <a
-          href="/"
+          href={`${base}/`}
           class="group relative z-20 flex items-center gap-2 text-xl font-bold tracking-tight sm:text-2xl shrink-0"
         >
           <LogoDark class="hidden w-40 dark:block" />
@@ -90,28 +92,28 @@ const isActive = (path: string) => {
           <ul class="hidden sm:flex sm:flex-row sm:items-center sm:gap-1">
             <li>
               <a
-                href="/people"
+                href={`${base}/people`}
                 class:list={["nav-link", { "nav-active": isActive("/people") }]}
                 >People</a
               >
             </li>
             <li>
               <a
-                href="/resources"
+                href={`${base}/resources`}
                 class:list={["nav-link", { "nav-active": isActive("/resources") }]}
                 >Resources</a
               >
             </li>
             <li>
               <a
-                href="/publications"
+                href={`${base}/publications`}
                 class:list={["nav-link", { "nav-active": isActive("/publications") }]}
                 >Publications</a
               >
             </li>
             <li>
               <a
-                href="/photos"
+                href={`${base}/photos`}
                 class:list={["nav-link", { "nav-active": isActive("/photos") }]}
                 >Photos</a
               >
@@ -120,7 +122,7 @@ const isActive = (path: string) => {
               SITE.showArchives && (
                 <li>
                   <LinkButton
-                    href="/archives"
+                    href={`${base}/archives`}
                     class:list={[
                       "nav-link",
                       { "nav-active": isActive("/archives") },
@@ -138,7 +140,7 @@ const isActive = (path: string) => {
               SITE.showGalleries && (
                 <li>
                   <LinkButton
-                    href="/galleries"
+                    href={`${base}/galleries`}
                     class:list={[
                       "nav-link",
                       { "nav-active": isActive("/galleries") },
@@ -155,7 +157,7 @@ const isActive = (path: string) => {
 
             <li>
               <a
-                href="/contact"
+                href={`${base}/contact`}
                 class:list={["nav-link", { "nav-active": isActive("/contact") }]}
                 >Contact</a
               >

@@ -8,12 +8,14 @@ interface Props {
   currentPath: string;
 }
 
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const { currentPath } = Astro.props;
 
 const isActive = (path: string) => {
+  const fullPath = base + path;
   const currentPathArray = currentPath.split("/").filter((p) => p.trim());
-  const pathArray = path.split("/").filter((p) => p.trim());
-  return currentPath === path || currentPathArray[0] === pathArray[0];
+  const fullPathArray = fullPath.split("/").filter((p) => p.trim());
+  return currentPath === fullPath || currentPathArray.at(-1) === fullPathArray.at(-1);
 };
 ---
 
@@ -29,7 +31,7 @@ const isActive = (path: string) => {
       <div class="mobile-menu-inner">
         <nav class="mobile-nav-links">
           <a
-            href="/people"
+            href={`${base}/people`}
             class:list={["mobile-nav-link", { active: isActive("/people") }]}
             style="--i:0"
           >
@@ -37,7 +39,7 @@ const isActive = (path: string) => {
             <span>People</span>
           </a>
           <a
-            href="/resources"
+            href={`${base}/resources`}
             class:list={["mobile-nav-link", { active: isActive("/resources") }]}
             style="--i:1"
           >
@@ -45,7 +47,7 @@ const isActive = (path: string) => {
             <span>Resources</span>
           </a>
           <a
-            href="/publications"
+            href={`${base}/publications`}
             class:list={["mobile-nav-link", { active: isActive("/publications") }]}
             style="--i:2"
           >
@@ -53,7 +55,7 @@ const isActive = (path: string) => {
             <span>Publications</span>
           </a>
           <a
-            href="/photos"
+            href={`${base}/photos`}
             class:list={["mobile-nav-link", { active: isActive("/photos") }]}
             style="--i:3"
           >
@@ -61,7 +63,7 @@ const isActive = (path: string) => {
             <span>Photos</span>
           </a>
           <a
-            href="/contact"
+            href={`${base}/contact`}
             class:list={["mobile-nav-link", { active: isActive("/contact") }]}
             style="--i:4"
           >
@@ -71,7 +73,7 @@ const isActive = (path: string) => {
           {
             SITE.showArchives && (
               <a
-                href="/archives"
+                href={`${base}/archives`}
                 class:list={[
                   "mobile-nav-link",
                   { active: isActive("/archives") },
@@ -86,7 +88,7 @@ const isActive = (path: string) => {
           {
             SITE.showGalleries && (
               <a
-                href="/galleries"
+                href={`${base}/galleries`}
                 class:list={[
                   "mobile-nav-link",
                   { active: isActive("/galleries") },
