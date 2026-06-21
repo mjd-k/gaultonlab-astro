@@ -153,6 +153,9 @@ const edgesJSON = JSON.stringify(edges);
     const nodesGroup = svg.querySelector("[data-nodes-group]")!;
     const edgesGroup = svg.querySelector("[data-edges-group]")!;
 
+    nodesGroup.innerHTML = "";
+    edgesGroup.innerHTML = "";
+
     const isDark = () =>
       document.documentElement.getAttribute("data-theme") === "dark";
 
