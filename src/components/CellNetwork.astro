@@ -79,7 +79,7 @@ const edgesJSON = JSON.stringify(edges);
 
 <div class:list={["cell-network-wrap", className]} aria-hidden="true">
   <div class="cell-network-inner">
-    <svg data-cell-svg viewBox="0 0 620 300" preserveAspectRatio="xMidYMax meet" class="cell-network-svg">
+    <svg data-cell-svg viewBox="0 0 620 320" preserveAspectRatio="xMidYMax meet" class="cell-network-svg">
       <g data-edges-group></g>
       <g data-nodes-group></g>
     </svg>
@@ -177,7 +177,7 @@ const edgesJSON = JSON.stringify(edges);
     const animNodes: AnimNode[] = cloud.map(d => {
       const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
       const startX = 10 + localRng() * 600;
-      const startY = 10 + localRng() * 220;
+      const startY = 10 + localRng() * 240;
       circle.setAttribute("cx", String(startX));
       circle.setAttribute("cy", String(startY));
       circle.setAttribute("r", String(d.rad));
