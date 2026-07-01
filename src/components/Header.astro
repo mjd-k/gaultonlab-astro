@@ -495,7 +495,23 @@ const isActive = (path: string) => {
   setupScrollPhysics();
   setupMobileNav();
 
-  // Close mobile menu before page swap to prevent stale open state
+  // Close mobile menu as soon as navigation starts — before the view transition
+  // snapshot is taken. This prevents Safari iOS from capturing the open menu
+  // state and persisting it through the transition animation.
+  document.addEventListener("astro:before-preparation", () => {
+    const menuBtn = document.querySelector("#menu-btn");
+    const mobileMenu = document.querySelector("#mobile-menu");
+    if (menuBtn) {
+      menuBtn.setAttribute("aria-expanded", "false");
+      menuBtn.setAttribute("aria-label", "Open Menu");
+    }
+    if (mobileMenu) {
+      mobileMenu.classList.remove("is-open");
+      mobileMenu.setAttribute("aria-hidden", "true");
+    }
+  });
+
+  // Belt-and-suspenders: also close on before-swap (handles non-preparation path)
   document.addEventListener("astro:before-swap", () => {
     const menuBtn = document.querySelector("#menu-btn");
     const mobileMenu = document.querySelector("#mobile-menu");
